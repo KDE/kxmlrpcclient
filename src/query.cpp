@@ -19,11 +19,10 @@
 */
 
 #include "query.h"
-
+#include "kxmlrpcclient_debug.h"
 #include <klocalizedstring.h>
 
 #include <QtCore/QUrl>
-#include <QtCore/QDebug>
 #include <QtCore/QDateTime>
 #include <QtCore/QVariant>
 #include <QtXml/QDomDocument>
@@ -276,7 +275,7 @@ QString Query::Private::marshal(const QVariant &arg) const
         return markup;
     }
     default:
-        qWarning() << "Failed to marshal unknown variant type:" << arg.type();
+        qCWarning(KXMLRPCCLIENT_LOG) << "Failed to marshal unknown variant type:" << arg.type();
     };
 
     return QString();
@@ -341,7 +340,7 @@ QVariant Query::Private::demarshal(const QDomElement &element) const
         }
         return QVariant(map);
     } else {
-        qWarning() << "Cannot demarshal unknown type" << typeName;
+        qCWarning(KXMLRPCCLIENT_LOG) << "Cannot demarshal unknown type" << typeName;
     }
     return QVariant();
 }
@@ -409,7 +408,7 @@ void Query::call(const QString &server,
     KIO::TransferJob *job = KIO::http_post(QUrl(server), postData, KIO::HideProgressInfo);
 
     if (!job) {
-        qWarning() << "Unable to create KIO job for" << server;
+        qCWarning(KXMLRPCCLIENT_LOG) << "Unable to create KIO job for" << server;
         return;
     }
 

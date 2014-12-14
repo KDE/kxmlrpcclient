@@ -23,11 +23,10 @@
 
 #include "client.h"
 #include "query.h"
-
+#include "kxmlrpcclient_debug.h"
 #include <kio/job.h>
 
 #include <QtCore/QVariant>
-#include <QtCore/QDebug>
 
 using namespace KXmlRpc;
 
@@ -111,7 +110,7 @@ void Client::call(const QString &method, const QList<QVariant> &args,
     QMap<QString, QString> metaData;
 
     if (d->mUrl.isEmpty()) {
-        qWarning() << "Cannot execute call to" << method << ": empty server URL";
+        qCWarning(KXMLRPCCLIENT_LOG) << "Cannot execute call to" << method << ": empty server URL";
     }
 
     //Fill metadata, with userAgent and possible digest auth

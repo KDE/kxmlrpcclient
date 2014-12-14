@@ -1,6 +1,7 @@
 set(kxmlrpcclient_SRCS
   client.cpp
   query.cpp
+  kxmlrpcclient_debug.cpp
 )
 
 add_library(KF5XmlRpcClient ${kxmlrpcclient_SRCS})
