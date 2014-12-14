@@ -20,4 +20,3 @@
 #include "kxmlrpcclient_debug.h"
 Q_LOGGING_CATEGORY(KXMLRPCCLIENT_LOG, "log_kxmlrpcclient")
 
-
