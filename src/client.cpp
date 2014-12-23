@@ -50,20 +50,21 @@ void Client::Private::queryFinished(Query *query)
 }
 
 Client::Client(QObject *parent)
-    : QObject(parent), d(new Private)
+    : QObject(parent)
+    , d(new Private)
 {
 }
 
 Client::Client(const QUrl &url, QObject *parent)
-    : QObject(parent), d(new Private)
+    : QObject(parent)
+    , d(new Private)
 {
     d->mUrl = url;
 }
 
 Client::~Client()
 {
-    QList<Query *>::Iterator it;
-    for (it = d->mPendingQueries.begin(); it != d->mPendingQueries.end(); ++it) {
+    for (auto it = d->mPendingQueries.begin(), end = d->mPendingQueries.end(); it != end; ++it) {
         (*it)->deleteLater();
     }
 
@@ -130,7 +131,7 @@ void Client::call(const QString &method, const QList<QVariant> &args,
     connect(query, SIGNAL(finished(Query*)), this, SLOT(queryFinished(Query*)));
     d->mPendingQueries.append(query);
 
-    query->call(d->mUrl.url(), method, args, metaData);
+    query->call(d->mUrl, method, args, metaData);
 }
 
 void Client::call(const QString &method, const QVariant &arg,
@@ -210,7 +211,7 @@ void Client::call(const QString &method, const QStringList &arg,
 {
     QList<QVariant> args;
     for (int i = 0; i < arg.count(); ++i) {
-        args << QVariant(arg[ i ]);
+        args << QVariant(arg[i]);
     }
 
     call(method, args, msgObj, messageSlot, faultObj, faultSlot, id);

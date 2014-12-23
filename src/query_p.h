@@ -94,8 +94,8 @@ public:
     static Result parseMessageResponse(const QDomDocument &doc);
     static Result parseFaultResponse(const QDomDocument &doc);
 
-    static QString markupCall(const QString &method, const QList<QVariant> &args);
-    static QString marshal(const QVariant &value);
+    static QByteArray markupCall(const QString &method, const QList<QVariant> &args);
+    static QByteArray marshal(const QVariant &value);
     static QVariant demarshal(const QDomElement &element);
 
     void slotData(KIO::Job *job, const QByteArray &data);

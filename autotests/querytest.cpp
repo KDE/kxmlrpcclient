@@ -31,13 +31,13 @@ QTEST_MAIN(QueryTest)
 
 using namespace KXmlRpc;
 
-#define XML_CALL_HEAD(call) "<?xml version=\"1.0\" ?>\r\n<methodCall>\r\n<methodName>" call "</methodName>\r\n<params>\r\n"
+#define XML_CALL_HEAD(call) QByteArray("<?xml version=\"1.0\" ?>\r\n<methodCall>\r\n<methodName>" call "</methodName>\r\n<params>\r\n") +
 #define XML_CALL_END "</params>\r\n</methodCall>\r\n"
 
-#define XML_RESPONSE_HEAD "<?xml version=\"1.0\" ?>\r\n<methodResponse>\r\n<params>\r\n"
+#define XML_RESPONSE_HEAD QByteArray("<?xml version=\"1.0\" ?>\r\n<methodResponse>\r\n<params>\r\n") +
 #define XML_RESPONSE_END "</params>\r\n</methodResponse>\r\n"
 
-#define XML_FAULT_HEAD "<?xml version=\"1.0\" ?>\r\n<methodResponse>\r\n<fault>\r\n"
+#define XML_FAULT_HEAD QByteArray("<?xml version=\"1.0\" ?>\r\n<methodResponse>\r\n<fault>\r\n") +
 #define XML_FAULT_END "</fault>\r\n</methodResponse>\r\n"
 
 
@@ -51,7 +51,7 @@ void QueryTest::testMarkupCall_data()
 {
     QTest::addColumn<QString>("methodName");
     QTest::addColumn<QList<QVariant>>("arguments");
-    QTest::addColumn<QString>("xml");
+    QTest::addColumn<QByteArray>("xml");
 
     QTest::newRow("int") << QString::fromLatin1("MyMethod")
                          << (QVariantList() << 1)
@@ -69,11 +69,11 @@ void QueryTest::testMarkupCall_data()
                                XML_CALL_END;
     QTest::newRow("string (utf8)") << QString::fromLatin1("MyMethod")
                                    << (QVariantList() << QString::fromUtf8("Žlutý kůň pěl ďábelské ódy"))
-                                   << QString::fromUtf8(XML_CALL_HEAD("MyMethod")
+                                   << XML_CALL_HEAD("MyMethod")
                                       "<param>\r\n"
                                       "<value><string><![CDATA[Žlutý kůň pěl ďábelské ódy]]></string></value>\r\n"
                                       "</param>\r\n"
-                                      XML_CALL_END);
+                                      XML_CALL_END;
     QTest::newRow("stringlist") << QString::fromLatin1("MyMethod")
                                 << (QVariantList() << (QStringList() << QLatin1String("data1") << QLatin1String("data2")))
                                 << XML_CALL_HEAD("MyMethod")
@@ -145,20 +145,16 @@ void QueryTest::testMarkupCall()
 {
     QFETCH(QString, methodName);
     QFETCH(QList<QVariant>, arguments);
-    QFETCH(QString, xml);
+    QFETCH(QByteArray, xml);
 
-    const QString markup = Query::Private::markupCall(methodName, arguments);
-    if (markup != xml) {
-        qDebug() << markup;
-        qDebug() << xml;
-    }
+    const QByteArray markup = Query::Private::markupCall(methodName, arguments);
     QCOMPARE(markup, xml);
 }
 
 void QueryTest::testResponse_data()
 {
     QTest::addColumn<bool>("isSuccess");
-    QTest::addColumn<QString>("xml");
+    QTest::addColumn<QByteArray>("xml");
     QTest::addColumn<QVariantList>("arguments");
 
     QVariantMap map;
@@ -243,7 +239,7 @@ void QueryTest::testResponse_data()
 void QueryTest::testResponse()
 {
     QFETCH(bool, isSuccess);
-    QFETCH(QString, xml);
+    QFETCH(QByteArray, xml);
     QFETCH(QVariantList, arguments);
 
     QDomDocument doc;

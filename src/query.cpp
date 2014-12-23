@@ -22,6 +22,7 @@
 #include "query_p.h"
 #include "kxmlrpcclient_debug.h"
 
+#include <KIO/Job>
 #include <klocalizedstring.h>
 
 using namespace KXmlRpc;
@@ -96,99 +97,88 @@ Result Query::Private::parseFaultResponse(const QDomDocument &doc)
 
     QDomNode errorNode = doc.documentElement().firstChild().firstChild();
     const QVariant errorVariant = demarshal(errorNode.toElement());
-    response.mErrorCode = errorVariant.toMap() [ QLatin1String("faultCode") ].toInt();
-    response.mErrorString = errorVariant.toMap() [ QLatin1String("faultString") ].toString();
+    response.mErrorCode = errorVariant.toMap()[QLatin1String("faultCode")].toInt();
+    response.mErrorString = errorVariant.toMap()[QLatin1String("faultString")].toString();
 
     return response;
 }
 
-QString Query::Private::markupCall(const QString &cmd,
+QByteArray Query::Private::markupCall(const QString &cmd,
                                           const QList<QVariant> &args)
 {
-    QString markup = QLatin1String("<?xml version=\"1.0\" ?>\r\n<methodCall>\r\n");
+    QByteArray markup = "<?xml version=\"1.0\" ?>\r\n<methodCall>\r\n";
 
-    markup += QLatin1String("<methodName>") + cmd + QLatin1String("</methodName>\r\n");
+    markup += "<methodName>" + cmd.toLatin1() + "</methodName>\r\n";
 
     if (!args.isEmpty()) {
 
-        markup += QLatin1String("<params>\r\n");
-        QList<QVariant>::ConstIterator it = args.begin();
-        QList<QVariant>::ConstIterator end = args.end();
-        for (; it != end; ++it) {
-            markup += QLatin1String("<param>\r\n") + marshal(*it) + QLatin1String("</param>\r\n");
+        markup += "<params>\r\n";
+        for (auto it = args.constBegin(), end = args.constEnd(); it != end; ++it) {
+            markup += "<param>\r\n" + marshal(*it) + "</param>\r\n";
         }
-        markup += QLatin1String("</params>\r\n");
+        markup += "</params>\r\n";
     }
 
-    markup += QLatin1String("</methodCall>\r\n");
+    markup += "</methodCall>\r\n";
 
     return markup;
 }
 
-QString Query::Private::marshal(const QVariant &arg)
+QByteArray Query::Private::marshal(const QVariant &arg)
 {
     switch (arg.type()) {
 
     case QVariant::String:
-        return QLatin1String("<value><string><![CDATA[") + arg.toString() + QLatin1String("]]></string></value>\r\n");
+        return "<value><string><![CDATA[" + arg.toString().toUtf8() + "]]></string></value>\r\n";
     case QVariant::StringList: {
         QStringList data = arg.toStringList();
         QStringListIterator dataIterator(data);
-        QString markup;
-        markup += QLatin1String("<value><array><data>");
+        QByteArray markup;
+        markup += "<value><array><data>";
         while (dataIterator.hasNext()) {
-            markup += QLatin1String("<value><string><![CDATA[") + dataIterator.next() + QLatin1String("]]></string></value>\r\n");
+            markup += "<value><string><![CDATA[" + dataIterator.next().toUtf8() + "]]></string></value>\r\n";
         }
-        markup += QLatin1String("</data></array></value>");
+        markup += "</data></array></value>";
         return markup;
     }
     case QVariant::Int:
-        return QLatin1String("<value><int>") + QString::number(arg.toInt()) + QLatin1String("</int></value>\r\n");
+        return "<value><int>" + QByteArray::number(arg.toInt()) + "</int></value>\r\n";
     case QVariant::Double:
-        return QLatin1String("<value><double>") + QString::number(arg.toDouble()) + QLatin1String("</double></value>\r\n");
-    case QVariant::Bool: {
-        QString markup = QLatin1String("<value><boolean>");
-        markup += arg.toBool() ? QLatin1String("1") : QLatin1String("0");
-        markup += QLatin1String("</boolean></value>\r\n");
-        return markup;
-    }
+        return "<value><double>" + QByteArray::number(arg.toDouble()) + "</double></value>\r\n";
+    case QVariant::Bool:
+        return "<value><boolean>" + QByteArray(arg.toBool() ? "1" : "0") + "</boolean></value>\r\n";
     case QVariant::ByteArray:
-        return QString::fromLatin1(QByteArray(QByteArray("<value><base64>") + arg.toByteArray().toBase64() + QByteArray("</base64></value>\r\n")));
-    case QVariant::DateTime: {
-        return QLatin1String("<value><dateTime.iso8601>") +
-               arg.toDateTime().toString(Qt::ISODate) +
-               QLatin1String("</dateTime.iso8601></value>\r\n");
-    }
+        return "<value><base64>" + arg.toByteArray().toBase64() + "</base64></value>\r\n";
+    case QVariant::DateTime:
+        return "<value><dateTime.iso8601>" + arg.toDateTime().toString(Qt::ISODate).toLatin1() + "</dateTime.iso8601></value>\r\n";
     case QVariant::List: {
-        QString markup = QLatin1String("<value><array><data>\r\n");
+        QByteArray markup = "<value><array><data>\r\n";
         const QList<QVariant> args = arg.toList();
         QList<QVariant>::ConstIterator it = args.begin();
         QList<QVariant>::ConstIterator end = args.end();
         for (; it != end; ++it) {
             markup += marshal(*it);
         }
-        markup += QLatin1String("</data></array></value>\r\n");
+        markup += "</data></array></value>\r\n";
         return markup;
     }
     case QVariant::Map: {
-        QString markup = QLatin1String("<value><struct>\r\n");
-        QMap<QString, QVariant> map = arg.toMap();
-        QMap<QString, QVariant>::ConstIterator it = map.constBegin();
-        QMap<QString, QVariant>::ConstIterator end = map.constEnd();
-        for (; it != end; ++it) {
-            markup += QLatin1String("<member>\r\n");
-            markup += QLatin1String("<name>") + it.key() + QLatin1String("</name>\r\n");
+        QByteArray markup = "<value><struct>\r\n";
+        const QMap<QString, QVariant> map = arg.toMap();
+        for (auto it = map.constBegin(), end = map.constEnd(); it != end; ++it) {
+            markup += "<member>\r\n";
+            markup += "<name>" + it.key().toUtf8() + "</name>\r\n";
             markup += marshal(it.value());
-            markup += QLatin1String("</member>\r\n");
+            markup += "</member>\r\n";
         }
-        markup += QLatin1String("</struct></value>\r\n");
+        markup += "</struct></value>\r\n";
         return markup;
     }
     default:
         qCWarning(KXMLRPCCLIENT_LOG) << "Failed to marshal unknown variant type:" << arg.type();
     };
 
-    return QString();
+    return QByteArray();
 }
 
 QVariant Query::Private::demarshal(const QDomElement &element)
@@ -245,7 +235,7 @@ QVariant Query::Private::demarshal(const QDomElement &element)
                                     QLatin1String("name")).item(0).toElement().text();
             const QVariant data = demarshal(memberNode.toElement().elementsByTagName(
                                                 QLatin1String("value")).item(0).toElement());
-            map[ key ] = data;
+            map[key] = data;
             memberNode = memberNode.nextSibling();
         }
         return QVariant(map);
@@ -287,8 +277,8 @@ void Query::Private::slotResult(KJob *job)
     if (isMessageResponse(doc)) {
         emit mParent->message(parseMessageResponse(doc).data(), mId);
     } else if (isFaultResponse(doc)) {
-        emit mParent->fault(parseFaultResponse(doc).errorCode(),
-                            parseFaultResponse(doc).errorString(), mId);
+        const Result fault = parseFaultResponse(doc);
+        emit mParent->fault(fault.errorCode(), fault.errorString(), mId);
     } else {
         emit mParent->fault(1, i18n("Unknown type of XML markup received"),
                             mId);
@@ -302,31 +292,25 @@ Query *Query::create(const QVariant &id, QObject *parent)
     return new Query(id, parent);
 }
 
-void Query::call(const QString &server,
+void Query::call(const QUrl &server,
                  const QString &method,
                  const QList<QVariant> &args,
                  const QMap<QString, QString> &jobMetaData)
 {
 
-    const QString xmlMarkup = d->markupCall(method, args);
-
-    QMap<QString, QString>::const_iterator mapIter;
-    QByteArray postData;
-    QDataStream stream(&postData, QIODevice::WriteOnly);
-    stream.writeRawData(xmlMarkup.toUtf8().constData(), xmlMarkup.toUtf8().length());
-
-    KIO::TransferJob *job = KIO::http_post(QUrl(server), postData, KIO::HideProgressInfo);
+    const QByteArray xmlMarkup = d->markupCall(method, args);
+    KIO::TransferJob *job = KIO::http_post(server, xmlMarkup, KIO::HideProgressInfo);
 
     if (!job) {
-        qCWarning(KXMLRPCCLIENT_LOG) << "Unable to create KIO job for" << server;
+        qCWarning(KXMLRPCCLIENT_LOG) << "Unable to create KIO job for" << server.url();
         return;
     }
 
     job->addMetaData(QLatin1String("content-type"), QLatin1String("Content-Type: text/xml; charset=utf-8"));
     job->addMetaData(QLatin1String("ConnectTimeout"), QLatin1String("50"));
 
-    for (mapIter = jobMetaData.begin(); mapIter != jobMetaData.end(); ++mapIter) {
-        job->addMetaData(mapIter.key(), mapIter.value());
+    for (auto it = jobMetaData.begin(), end = jobMetaData.end(); it != end; ++it) {
+        job->addMetaData(it.key(), it.value());
     }
 
     connect(job, SIGNAL(data(KIO::Job*,QByteArray)),
@@ -345,8 +329,7 @@ Query::Query(const QVariant &id, QObject *parent)
 
 Query::~Query()
 {
-    QList<KJob *>::Iterator it;
-    for (it = d->mPendingJobs.begin(); it != d->mPendingJobs.end(); ++it) {
+    for (auto it = d->mPendingJobs.begin(), end = d->mPendingJobs.end(); it != end; ++it) {
         (*it)->kill();
     }
     delete d;
