@@ -1,23 +1,19 @@
-In this file:
+# KXmlRpcClient
 
-* About kxmlrpcclient
-* Licensing
+## About kxmlrpcclient
 
-
-About kxmlrpcclient
-----------------
-This library contains simple XML-RPC Client support. It is used mainly
-by the egroupware module of kdepim, but is a complete client and is
-quite easy to use. Only one interface is exposed to the world, 
-kxmlrpcclient/client.h and of that interface, you only need to 
-use 3 methods: setUrl, setUserAgent and call. 
+This library contains simple XML-RPC Client support. It is a complete
+client and is quite easy to use. Only one interface is exposed to the
+world, kxmlrpcclient/client.h and of that interface, you only need to
+use 3 methods: setUrl, setUserAgent and call.
 
 A small note on authentication. If you will be accessing an XML-RPC server
-which uses HTTP-AUTH, simply set the user and pass in the KURL. To use 
-Digest authentication, call setDigestAuthEnabled( true ).
+which uses HTTP-AUTH, simply set the user and pass in the URL. To use
+Digest authentication, call setDigestAuthEnabled(true).
 
-Licensing
----------
+
+## Licensing
+
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions
 are met:
@@ -38,6 +34,3 @@ DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
 THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
 THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
-
-
