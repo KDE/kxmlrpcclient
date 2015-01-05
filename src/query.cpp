@@ -19,13 +19,10 @@
 */
 
 #include "query.h"
+#include "query_p.h"
 #include "kxmlrpcclient_debug.h"
-#include <klocalizedstring.h>
 
-#include <QtCore/QUrl>
-#include <QtCore/QDateTime>
-#include <QtCore/QVariant>
-#include <QtXml/QDomDocument>
+#include <klocalizedstring.h>
 
 using namespace KXmlRpc;
 
@@ -35,68 +32,6 @@ using namespace KXmlRpc;
   Implementation of Query
 **/
 
-namespace KXmlRpc
-{
-
-/**
-  @brief
-  Result is an internal class that represents a response
-  from a XML-RPC server.
-
-  This is an internal class and is only used by Query.
-  @internal
- */
-class Result
-{
-    friend class Query;
-    friend class Query::Private;
-
-public:
-    /**
-      Constructs a result.
-     */
-    Result();
-
-    /**
-      Destroys a result.
-     */
-    ~Result();
-
-    /**
-      Returns true if the method call succeeded, false
-      if there was an XML-RPC fault.
-
-      @see errorCode(), errorString()
-     */
-    bool success() const;
-
-    /**
-      Returns the error code of the fault.
-
-      @see success(), errorString()
-     */
-    int errorCode() const;
-
-    /**
-      Returns the error string that describes the fault.
-
-      @see success, errorCode()
-     */
-    QString errorString() const;
-
-    /**
-      Returns the data sent to us from the server.
-     */
-    QList<QVariant> data() const;
-
-private:
-    bool mSuccess;
-    int mErrorCode;
-    QString mErrorString;
-    QList<QVariant> mData;
-};
-
-} // namespace KXmlRpcClient
 
 KXmlRpc::Result::Result()
     : mSuccess(false)
@@ -128,46 +63,19 @@ QList<QVariant> KXmlRpc::Result::data() const
     return mData;
 }
 
-class Query::Private
-{
-public:
-    Private(Query *parent)
-        : mParent(parent)
-    {
-    }
-
-    bool isMessageResponse(const QDomDocument &doc) const;
-    bool isFaultResponse(const QDomDocument &doc) const;
-
-    Result parseMessageResponse(const QDomDocument &doc) const;
-    Result parseFaultResponse(const QDomDocument &doc) const;
-
-    QString markupCall(const QString &method, const QList<QVariant> &args) const;
-    QString marshal(const QVariant &value) const;
-    QVariant demarshal(const QDomElement &element) const;
-
-    void slotData(KIO::Job *job, const QByteArray &data);
-    void slotResult(KJob *job);
-
-    Query *mParent;
-    QByteArray mBuffer;
-    QVariant mId;
-    QList<KJob *> mPendingJobs;
-};
-
-bool Query::Private::isMessageResponse(const QDomDocument &doc) const
+bool Query::Private::isMessageResponse(const QDomDocument &doc)
 {
     return doc.documentElement().firstChild().toElement().tagName().toLower()
            == QLatin1String("params");
 }
 
-bool Query::Private::isFaultResponse(const QDomDocument &doc) const
+bool Query::Private::isFaultResponse(const QDomDocument &doc)
 {
     return doc.documentElement().firstChild().toElement().tagName().toLower()
            == QLatin1String("fault");
 }
 
-Result Query::Private::parseMessageResponse(const QDomDocument &doc) const
+Result Query::Private::parseMessageResponse(const QDomDocument &doc)
 {
     Result response;
     response.mSuccess = true;
@@ -181,7 +89,7 @@ Result Query::Private::parseMessageResponse(const QDomDocument &doc) const
     return response;
 }
 
-Result Query::Private::parseFaultResponse(const QDomDocument &doc) const
+Result Query::Private::parseFaultResponse(const QDomDocument &doc)
 {
     Result response;
     response.mSuccess = false;
@@ -195,7 +103,7 @@ Result Query::Private::parseFaultResponse(const QDomDocument &doc) const
 }
 
 QString Query::Private::markupCall(const QString &cmd,
-                                   const QList<QVariant> &args) const
+                                          const QList<QVariant> &args)
 {
     QString markup = QLatin1String("<?xml version=\"1.0\" ?>\r\n<methodCall>\r\n");
 
@@ -217,7 +125,7 @@ QString Query::Private::markupCall(const QString &cmd,
     return markup;
 }
 
-QString Query::Private::marshal(const QVariant &arg) const
+QString Query::Private::marshal(const QVariant &arg)
 {
     switch (arg.type()) {
 
@@ -283,7 +191,7 @@ QString Query::Private::marshal(const QVariant &arg) const
     return QString();
 }
 
-QVariant Query::Private::demarshal(const QDomElement &element) const
+QVariant Query::Private::demarshal(const QDomElement &element)
 {
     Q_ASSERT(element.tagName().toLower() == QLatin1String("value"));
 

@@ -1,21 +1,21 @@
-include(ECMMarkAsTest)
+include(ECMAddTests)
 
 find_package(Qt5Test CONFIG REQUIRED)
 
-########### next target ###############
+include_directories(${CMAKE_SOURCE_DIR}/src ${CMAKE_BINARY_DIR}/src)
 
-set(testclient_SRCS testclient.cpp)
+macro(add_kxmlrpc_test _name)
+  ecm_add_test(${_name}.cpp
+               ${CMAKE_SOURCE_DIR}/src/client.cpp
+               ${CMAKE_SOURCE_DIR}/src/query.cpp
+               ${CMAKE_SOURCE_DIR}/src/kxmlrpcclient_debug.cpp
+               LINK_LIBRARIES KF5::KIOCore KF5::I18n Qt5::Xml Qt5::Test
+               TEST_NAME ${_name}
+               NAME_PREFIX kxmlrpc)
+endmacro()
 
-add_executable(testclient ${testclient_SRCS})
-add_test(testclient testclient)
-ecm_mark_as_test(testclient)
-target_link_libraries(testclient KF5XmlRpcClient Qt5::Test)
 
-########### next target ###############
+########### tests ###############
 
-set(testquery_SRCS testquery.cpp)
-
-add_executable(testquery ${testclient_SRCS})
-add_test(testquery testquery)
-ecm_mark_as_test(testquery)
-target_link_libraries(testquery KF5XmlRpcClient Qt5::Test)
+add_kxmlrpc_test(clienttest)
+add_kxmlrpc_test(querytest)

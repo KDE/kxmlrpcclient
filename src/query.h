@@ -48,6 +48,8 @@ class KXMLRPCCLIENT_EXPORT Query : public QObject
     Q_OBJECT
 
 public:
+    class Private;
+
     /**
       Constructs a query.
 
@@ -90,7 +92,6 @@ private:
     explicit Query(const QVariant &id, QObject *parent = Q_NULLPTR);
     ~Query();
 
-    class Private;
     Private *const d;
 
     Q_PRIVATE_SLOT(d, void slotData(KIO::Job *, const QByteArray &))

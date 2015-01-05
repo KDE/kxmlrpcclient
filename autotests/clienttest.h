@@ -19,17 +19,17 @@
     Boston, MA 02110-1301, USA.
 */
 
-#include <qtest.h>
+#ifndef _KXMLRPC_TEST_CLIENT_H_
+#define _KXMLRPC_TEST_CLIENT_H_
 
-#include "testquery.h"
+#include <QtCore/QObject>
 
-QTEST_MAIN(TestQuery)
-
-#include <kxmlrpcclient/query.h>
-using namespace KXmlRpc;
-
-void TestQuery::testValidity()
+class ClientTest : public QObject
 {
-    Query *q = Query::create();
-    QVERIFY(q != NULL);
-}
+    Q_OBJECT
+private Q_SLOTS:
+    void testValidity();
+};
+
+#endif
+
