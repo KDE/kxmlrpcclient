@@ -99,6 +99,8 @@ private:
 } // namespace KXmlRpcClient
 
 KXmlRpc::Result::Result()
+    : mSuccess(false)
+    , mErrorCode(-1)
 {
 }
 
