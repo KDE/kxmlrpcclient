@@ -1,0 +1,15 @@
+maintainer: dvratil
+description: Interaction with XMLRPC services
+tier: 3
+type: functional
+platforms:
+    - name: Linux
+    - name: Windows
+    - name: MacOSX
+portingAid: false
+deprecated: false
+release: false
+libraries:
+    - qmake: KXmlRpcClient
+      cmake: "KF5:XmlRpcClient"
+cmakename: KF5XmlRpcClient

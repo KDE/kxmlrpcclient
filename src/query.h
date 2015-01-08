@@ -27,8 +27,13 @@
 #include <QtCore/QObject>
 #include <QtCore/QVariant>
 #include <QtCore/QMap>
-#include <kio/job.h>
+#include <QtCore/QUrl>
 
+namespace KIO
+{
+class Job;
+}
+class KJob;
 class QString;
 
 /** Namespace for XmlRpc related classes */
@@ -48,6 +53,8 @@ class KXMLRPCCLIENT_EXPORT Query : public QObject
     Q_OBJECT
 
 public:
+    class Private;
+
     /**
       Constructs a query.
 
@@ -66,7 +73,7 @@ public Q_SLOTS:
       @param args an argument list to pass to said method.
       @param jobMetaData additional arguments to pass to the KIO::Job.
      */
-    void call(const QString &server, const QString &method,
+    void call(const QUrl &server, const QString &method,
               const QList<QVariant> &args,
               const QMap<QString, QString> &jobMetaData);
 
@@ -90,7 +97,6 @@ private:
     explicit Query(const QVariant &id, QObject *parent = Q_NULLPTR);
     ~Query();
 
-    class Private;
     Private *const d;
 
     Q_PRIVATE_SLOT(d, void slotData(KIO::Job *, const QByteArray &))

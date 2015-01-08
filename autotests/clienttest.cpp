@@ -21,14 +21,15 @@
 
 #include <qtest.h>
 
-#include "testclient.h"
+#include "clienttest.h"
 
-QTEST_GUILESS_MAIN(TestClient)
+QTEST_GUILESS_MAIN(ClientTest)
 
-#include <kxmlrpcclient/client.h>
+#include "client.h"
+
 using namespace KXmlRpc;
 
-void TestClient::testValidity()
+void ClientTest::testValidity()
 {
     Client *c = new Client();
     c->setUrl(QUrl(QLatin1String("http://test:pass@fake.com/rpc2")));

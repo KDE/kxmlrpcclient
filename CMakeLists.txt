@@ -20,8 +20,6 @@ set(KF5_VERSION "5.6.0")
 set(KXMLRPCCLIENT_LIB_VERSION "4.79.0")
 
 add_definitions(-DTRANSLATION_DOMAIN=\"libkxmlrpcclient5\")
-add_definitions("-DQT_NO_CAST_FROM_ASCII -DQT_NO_CAST_TO_ASCII")
-# FIXME: KXmlRpcClient ? KXMLRPCClient ?
 ecm_setup_version(${KXMLRPCCLIENT_LIB_VERSION} VARIABLE_PREFIX KXMLRPCCLIENT
                         VERSION_HEADER "${CMAKE_CURRENT_BINARY_DIR}/kxmlrpcclient_version.h"
                         PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/KF5XmlRpcClientConfigVersion.cmake"

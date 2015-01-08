@@ -19,16 +19,22 @@
     Boston, MA 02110-1301, USA.
 */
 
-#ifndef _KXMLRPC_TEST_CLIENT_H_
-#define _KXMLRPC_TEST_CLIENT_H_
+#ifndef _KXMLRPC_TEST_QUERY_H_
+#define _KXMLRPC_TEST_QUERY_H_
 
 #include <QtCore/QObject>
 
-class TestClient : public QObject
+class QueryTest : public QObject
 {
     Q_OBJECT
 private Q_SLOTS:
     void testValidity();
+
+    void testMarkupCall_data();
+    void testMarkupCall();
+
+    void testResponse_data();
+    void testResponse();
 };
 
 #endif
