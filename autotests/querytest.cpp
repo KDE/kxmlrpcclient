@@ -210,7 +210,7 @@ void QueryTest::testResponse_data()
                                 << XML_RESPONSE_HEAD
                                    "<param><value><dateTime.iso8601>2015-01-05T17:03:15Z</dateTime.iso8601></value></param>"
                                    XML_RESPONSE_END
-                                << (QVariantList() << QDateTime(QDate(2015, 01, 05), QTime(18, 03, 15)).toUTC());
+                                << (QVariantList() << QDateTime(QDate(2015, 01, 05), QTime(17, 03, 15), Qt::UTC));
     QTest::newRow("array") << true
                            << XML_RESPONSE_HEAD
                               "<param><value><ARRAY><data>"
