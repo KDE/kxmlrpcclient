@@ -28,7 +28,6 @@
 
 QTEST_MAIN(QueryTest)
 
-
 using namespace KXmlRpc;
 
 #define XML_CALL_HEAD(call) QByteArray("<?xml version=\"1.0\" ?>\r\n<methodCall>\r\n<methodName>" call "</methodName>\r\n<params>\r\n") +
@@ -39,7 +38,6 @@ using namespace KXmlRpc;
 
 #define XML_FAULT_HEAD QByteArray("<?xml version=\"1.0\" ?>\r\n<methodResponse>\r\n<fault>\r\n") +
 #define XML_FAULT_END "</fault>\r\n</methodResponse>\r\n"
-
 
 void QueryTest::testValidity()
 {

@@ -79,7 +79,6 @@ private:
     QList<QVariant> mData;
 };
 
-
 class Query::Private
 {
 public:
@@ -106,6 +105,5 @@ public:
     QVariant mId;
     QList<KJob *> mPendingJobs;
 };
-
 
 } // namespace KXmlRpcClient

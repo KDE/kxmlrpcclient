@@ -33,7 +33,6 @@ using namespace KXmlRpc;
   Implementation of Query
 **/
 
-
 KXmlRpc::Result::Result()
     : mSuccess(false)
     , mErrorCode(-1)
@@ -104,7 +103,7 @@ Result Query::Private::parseFaultResponse(const QDomDocument &doc)
 }
 
 QByteArray Query::Private::markupCall(const QString &cmd,
-                                          const QList<QVariant> &args)
+                                      const QList<QVariant> &args)
 {
     QByteArray markup = "<?xml version=\"1.0\" ?>\r\n<methodCall>\r\n";
 
