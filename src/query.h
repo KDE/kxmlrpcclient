@@ -86,12 +86,12 @@ Q_SIGNALS:
     /**
       A signal sent when we receive an error from the server.
      */
-    void fault(int, const QString &, const QVariant &id);
+    void fault(int errCode, const QString &errString, const QVariant &id);
 
     /**
       A signal sent when a query finishes.
      */
-    void finished(Query *);
+    void finished(Query *query);
 
 private:
     explicit Query(const QVariant &id, QObject *parent = Q_NULLPTR);
