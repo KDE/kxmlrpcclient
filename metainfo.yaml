@@ -8,7 +8,7 @@ platforms:
     - name: MacOSX
 portingAid: false
 deprecated: false
-release: false
+release: true
 libraries:
     - qmake: KXmlRpcClient
       cmake: "KF5:XmlRpcClient"
