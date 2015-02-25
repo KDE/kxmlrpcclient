@@ -18,10 +18,9 @@ include(KDEFrameworkCompilerSettings)
 
 set(KF5_VERSION "5.8.0") # handled by release scripts
 set(KF5_DEP_VERSION "5.7.0") # handled by release scripts
-set(KXMLRPCCLIENT_LIB_VERSION "4.79.0")
 
 add_definitions(-DTRANSLATION_DOMAIN=\"libkxmlrpcclient5\")
-ecm_setup_version(${KXMLRPCCLIENT_LIB_VERSION} VARIABLE_PREFIX KXMLRPCCLIENT
+ecm_setup_version(${KF5_VERSION} VARIABLE_PREFIX KXMLRPCCLIENT
                         VERSION_HEADER "${CMAKE_CURRENT_BINARY_DIR}/kxmlrpcclient_version.h"
                         PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/KF5XmlRpcClientConfigVersion.cmake"
                         SOVERSION 5
