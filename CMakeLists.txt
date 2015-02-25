@@ -16,7 +16,8 @@ include(KDEInstallDirs)
 include(KDECMakeSettings)
 include(KDEFrameworkCompilerSettings)
 
-set(KF5_VERSION "5.6.0")
+set(KF5_VERSION "5.8.0") # handled by release scripts
+set(KF5_DEP_VERSION "5.7.0") # handled by release scripts
 set(KXMLRPCCLIENT_LIB_VERSION "4.79.0")
 
 add_definitions(-DTRANSLATION_DOMAIN=\"libkxmlrpcclient5\")
@@ -27,7 +28,7 @@ ecm_setup_version(${KXMLRPCCLIENT_LIB_VERSION} VARIABLE_PREFIX KXMLRPCCLIENT
 )
 
 ########### Find packages ###########
-find_package(KF5KIO ${KF5_VERSION} CONFIG REQUIRED)
+find_package(KF5KIO ${KF5_DEP_VERSION} CONFIG REQUIRED)
 
 ########### Targets ###########
 add_subdirectory(src)
