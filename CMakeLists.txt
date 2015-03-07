@@ -17,7 +17,7 @@ include(KDECMakeSettings)
 include(KDEFrameworkCompilerSettings)
 
 set(KF5_VERSION "5.8.0") # handled by release scripts
-set(KF5_DEP_VERSION "5.7.0") # handled by release scripts
+set(KF5_DEP_VERSION "5.8.0") # handled by release scripts
 
 add_definitions(-DTRANSLATION_DOMAIN=\"libkxmlrpcclient5\")
 ecm_setup_version(${KF5_VERSION} VARIABLE_PREFIX KXMLRPCCLIENT
