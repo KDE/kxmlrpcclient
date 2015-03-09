@@ -27,9 +27,13 @@ ecm_setup_version(${KF5_VERSION} VARIABLE_PREFIX KXMLRPCCLIENT
 )
 
 ########### Find packages ###########
+find_package(KF5I18n ${KF5_DEP_VERSION} CONFIG REQUIRED)
 find_package(KF5KIO ${KF5_DEP_VERSION} CONFIG REQUIRED)
 
 ########### Targets ###########
+if(IS_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/po")
+   ki18n_install(po)
+endif()
 add_subdirectory(src)
 add_subdirectory(autotests)
 
