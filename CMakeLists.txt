@@ -16,7 +16,7 @@ include(KDEInstallDirs)
 include(KDECMakeSettings)
 include(KDEFrameworkCompilerSettings)
 
-set(KF5_VERSION "5.9.0") # handled by release scripts
+set(KF5_VERSION "5.10.0") # handled by release scripts
 set(KF5_DEP_VERSION "5.9.0") # handled by release scripts
 
 add_definitions(-DTRANSLATION_DOMAIN=\"libkxmlrpcclient5\")
