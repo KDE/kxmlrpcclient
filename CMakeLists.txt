@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 2.8.12)
 project(KXmlRpcClient)
 
 # ECM setup
-find_package(ECM 5.9.0 CONFIG REQUIRED)
+find_package(ECM 5.10.0 CONFIG REQUIRED)
 set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH})
 
 include(GenerateExportHeader)
@@ -17,7 +17,7 @@ include(KDECMakeSettings)
 include(KDEFrameworkCompilerSettings)
 
 set(KF5_VERSION "5.10.0") # handled by release scripts
-set(KF5_DEP_VERSION "5.9.0") # handled by release scripts
+set(KF5_DEP_VERSION "5.10.0") # handled by release scripts
 
 add_definitions(-DTRANSLATION_DOMAIN=\"libkxmlrpcclient5\")
 ecm_setup_version(${KF5_VERSION} VARIABLE_PREFIX KXMLRPCCLIENT
