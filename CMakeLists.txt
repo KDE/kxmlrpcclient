@@ -3,7 +3,11 @@ cmake_minimum_required(VERSION 2.8.12)
 project(KXmlRpcClient)
 
 # ECM setup
-find_package(ECM 5.10.0 CONFIG REQUIRED)
+include(FeatureSummary)
+find_package(ECM 5.10.0 CONFIG )
+set_package_properties(ECM PROPERTIES TYPE REQUIRED DESCRIPTION "Extra CMake Modules." URL "https://projects.kde.org/projects/kdesupport/extra-cmake-modules")
+feature_summary(WHAT REQUIRED_PACKAGES_NOT_FOUND FATAL_ON_MISSING_REQUIRED_PACKAGES)
+
 set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH})
 
 include(GenerateExportHeader)
@@ -11,7 +15,7 @@ include(ECMGenerateHeaders)
 include(ECMGeneratePriFile)
 include(ECMPackageConfigHelpers)
 include(ECMSetupVersion)
-include(FeatureSummary)
+
 include(KDEInstallDirs)
 include(KDECMakeSettings)
 include(KDEFrameworkCompilerSettings)
