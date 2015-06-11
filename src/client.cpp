@@ -210,7 +210,9 @@ void Client::call(const QString &method, const QStringList &arg,
                   const QVariant &id)
 {
     QList<QVariant> args;
-    for (int i = 0; i < arg.count(); ++i) {
+    const int numArgs = arg.count();
+    args.reserve(numArgs);
+    for (int i = 0; i < numArgs; ++i) {
         args << QVariant(arg[i]);
     }
 

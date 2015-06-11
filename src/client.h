@@ -309,9 +309,10 @@ void Client::call(const QString &method, const QList<T> &arg,
                   const QVariant &id)
 {
     QList<QVariant> args;
-
-    for (int i = 0; i < arg.count(); ++i) {
-        args << QVariant(arg[ i ]);
+    const int numArgs = arg.count();
+    args.reserve(numArgs);
+    for (int i = 0; i < numArgs; ++i) {
+        args << QVariant(arg[i]);
     }
 
     return call(method, args, faultObj, faultSlot, msgObj, messageSlot, id);
