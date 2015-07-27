@@ -2,7 +2,7 @@
 
 XML-RPC client
 
-## About kxmlrpcclient
+## Introduction
 
 This library contains simple XML-RPC Client support. It is a complete
 client and is quite easy to use. Only one interface is exposed to the
