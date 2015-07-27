@@ -1,5 +1,7 @@
 # KXmlRpcClient
 
+XML-RPC client
+
 ## About kxmlrpcclient
 
 This library contains simple XML-RPC Client support. It is a complete
