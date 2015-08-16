@@ -66,7 +66,7 @@ void QueryTest::testMarkupCall_data()
                                "</param>\r\n"
                                XML_CALL_END;
     QTest::newRow("string (utf8)") << QString::fromLatin1("MyMethod")
-                                   << (QVariantList() << QString::fromUtf8("Žlutý kůň pěl ďábelské ódy"))
+                                   << (QVariantList() << QStringLiteral("Žlutý kůň pěl ďábelské ódy"))
                                    << XML_CALL_HEAD("MyMethod")
                                       "<param>\r\n"
                                       "<value><string><![CDATA[Žlutý kůň pěl ďábelské ódy]]></string></value>\r\n"

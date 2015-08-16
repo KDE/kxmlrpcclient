@@ -96,8 +96,8 @@ Result QueryPrivate::parseFaultResponse(const QDomDocument &doc)
 
     QDomNode errorNode = doc.documentElement().firstChild().firstChild();
     const QVariant errorVariant = demarshal(errorNode.toElement());
-    response.mErrorCode = errorVariant.toMap()[QLatin1String("faultCode")].toInt();
-    response.mErrorString = errorVariant.toMap()[QLatin1String("faultString")].toString();
+    response.mErrorCode = errorVariant.toMap()[QStringLiteral("faultCode")].toInt();
+    response.mErrorString = errorVariant.toMap()[QStringLiteral("faultString")].toString();
 
     return response;
 }
@@ -209,9 +209,9 @@ QVariant QueryPrivate::demarshal(const QDomElement &element)
         if (17 <= dateText.length() && dateText.length() <= 18 &&
                 dateText.at(4) !=  QLatin1Char('-') && dateText.at(11) ==  QLatin1Char(':')) {
             if (dateText.endsWith(QLatin1Char('Z'))) {
-                date = QDateTime::fromString(dateText, QLatin1String("yyyyMMddTHH:mm:ssZ"));
+                date = QDateTime::fromString(dateText, QStringLiteral("yyyyMMddTHH:mm:ssZ"));
             } else {
-                date = QDateTime::fromString(dateText, QLatin1String("yyyyMMddTHH:mm:ss"));
+                date = QDateTime::fromString(dateText, QStringLiteral("yyyyMMddTHH:mm:ss"));
             }
         } else {
             date = QDateTime::fromString(dateText, Qt::ISODate);
@@ -231,9 +231,9 @@ QVariant QueryPrivate::demarshal(const QDomElement &element)
         QDomNode memberNode = typeElement.firstChild();
         while (!memberNode.isNull()) {
             const QString key = memberNode.toElement().elementsByTagName(
-                                    QLatin1String("name")).item(0).toElement().text();
+                                    QStringLiteral("name")).item(0).toElement().text();
             const QVariant data = demarshal(memberNode.toElement().elementsByTagName(
-                                                QLatin1String("value")).item(0).toElement());
+                                                QStringLiteral("value")).item(0).toElement());
             map[key] = data;
             memberNode = memberNode.nextSibling();
         }
@@ -305,8 +305,8 @@ void Query::call(const QUrl &server,
         return;
     }
 
-    job->addMetaData(QLatin1String("content-type"), QLatin1String("Content-Type: text/xml; charset=utf-8"));
-    job->addMetaData(QLatin1String("ConnectTimeout"), QLatin1String("50"));
+    job->addMetaData(QStringLiteral("content-type"), QStringLiteral("Content-Type: text/xml; charset=utf-8"));
+    job->addMetaData(QStringLiteral("ConnectTimeout"), QStringLiteral("50"));
 
     for (auto it = jobMetaData.begin(), end = jobMetaData.end(); it != end; ++it) {
         job->addMetaData(it.key(), it.value());

@@ -33,7 +33,7 @@ using namespace KXmlRpc;
 class ClientPrivate
 {
 public:
-    ClientPrivate() : mUserAgent(QLatin1String("KDE XMLRPC resources")), mDigestAuth(false) {}
+    ClientPrivate() : mUserAgent(QStringLiteral("KDE XMLRPC resources")), mDigestAuth(false) {}
 
     void queryFinished(Query *);
 
@@ -116,13 +116,13 @@ void Client::call(const QString &method, const QList<QVariant> &args,
 
     //Fill metadata, with userAgent and possible digest auth
     if (d->mUserAgent.isEmpty()) {
-        metaData[QLatin1String("UserAgent")] = QLatin1String("KDE-XMLRPC");
+        metaData[QStringLiteral("UserAgent")] = QStringLiteral("KDE-XMLRPC");
     } else {
-        metaData[QLatin1String("UserAgent")] = d->mUserAgent;
+        metaData[QStringLiteral("UserAgent")] = d->mUserAgent;
     }
 
     if (d->mDigestAuth) {
-        metaData[QLatin1String("WWW-Authenticate:")] = QLatin1String("Digest");
+        metaData[QStringLiteral("WWW-Authenticate:")] = QStringLiteral("Digest");
     }
 
     Query *query = Query::create(id, this);
@@ -210,7 +210,9 @@ void Client::call(const QString &method, const QStringList &arg,
                   const QVariant &id)
 {
     QList<QVariant> args;
-    for (int i = 0; i < arg.count(); ++i) {
+    const int numArgs = arg.count();
+    args.reserve(numArgs);
+    for (int i = 0; i < numArgs; ++i) {
         args << QVariant(arg[i]);
     }
 
