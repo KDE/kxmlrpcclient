@@ -39,7 +39,7 @@ class QString;
 /** Namespace for XmlRpc related classes */
 namespace KXmlRpc
 {
-
+class QueryPrivate;
 /**
   @brief
   Query is a class that represents an individual XML-RPC call.
@@ -53,7 +53,6 @@ class KXMLRPCCLIENT_EXPORT Query : public QObject
     Q_OBJECT
 
 public:
-    class Private;
 
     /**
       Constructs a query.
@@ -97,7 +96,7 @@ private:
     explicit Query(const QVariant &id, QObject *parent = Q_NULLPTR);
     ~Query();
 
-    Private *const d;
+    QueryPrivate *const d;
 
     Q_PRIVATE_SLOT(d, void slotData(KIO::Job *, const QByteArray &))
     Q_PRIVATE_SLOT(d, void slotResult(KJob *))

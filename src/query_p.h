@@ -32,7 +32,7 @@ namespace KXmlRpc
 class Result
 {
     friend class Query;
-    friend class Query::Private;
+    friend class QueryPrivate;
 
 public:
     /**
@@ -79,10 +79,10 @@ private:
     QList<QVariant> mData;
 };
 
-class Query::Private
+class QueryPrivate
 {
 public:
-    Private(Query *parent)
+    QueryPrivate(Query *parent)
         : mParent(parent)
     {
     }

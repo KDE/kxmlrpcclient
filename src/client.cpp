@@ -30,10 +30,10 @@
 
 using namespace KXmlRpc;
 
-class Client::Private
+class ClientPrivate
 {
 public:
-    Private() : mUserAgent(QLatin1String("KDE XMLRPC resources")), mDigestAuth(false) {}
+    ClientPrivate() : mUserAgent(QLatin1String("KDE XMLRPC resources")), mDigestAuth(false) {}
 
     void queryFinished(Query *);
 
@@ -43,7 +43,7 @@ public:
     QList<Query *> mPendingQueries;
 };
 
-void Client::Private::queryFinished(Query *query)
+void ClientPrivate::queryFinished(Query *query)
 {
     mPendingQueries.removeAll(query);
     query->deleteLater();
@@ -51,13 +51,13 @@ void Client::Private::queryFinished(Query *query)
 
 Client::Client(QObject *parent)
     : QObject(parent)
-    , d(new Private)
+    , d(new ClientPrivate)
 {
 }
 
 Client::Client(const QUrl &url, QObject *parent)
     : QObject(parent)
-    , d(new Private)
+    , d(new ClientPrivate)
 {
     d->mUrl = url;
 }

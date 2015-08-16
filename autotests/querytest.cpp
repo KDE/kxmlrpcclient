@@ -145,7 +145,7 @@ void QueryTest::testMarkupCall()
     QFETCH(QList<QVariant>, arguments);
     QFETCH(QByteArray, xml);
 
-    const QByteArray markup = Query::Private::markupCall(methodName, arguments);
+    const QByteArray markup = QueryPrivate::markupCall(methodName, arguments);
     QCOMPARE(markup, xml);
 }
 
@@ -243,17 +243,17 @@ void QueryTest::testResponse()
     QDomDocument doc;
     QVERIFY(doc.setContent(xml));
 
-    QCOMPARE(Query::Private::isMessageResponse(doc), isSuccess);
-    QCOMPARE(Query::Private::isFaultResponse(doc), !isSuccess);
+    QCOMPARE(QueryPrivate::isMessageResponse(doc), isSuccess);
+    QCOMPARE(QueryPrivate::isFaultResponse(doc), !isSuccess);
 
     if (isSuccess) {
-        const KXmlRpc::Result result = Query::Private::parseMessageResponse(doc);
+        const KXmlRpc::Result result = QueryPrivate::parseMessageResponse(doc);
         QVERIFY(result.success());
         QCOMPARE(result.errorCode(), -1);
         QVERIFY(result.errorString().isEmpty());
         QCOMPARE(result.data(), arguments);
     } else {
-        const KXmlRpc::Result result = Query::Private::parseFaultResponse(doc);
+        const KXmlRpc::Result result = QueryPrivate::parseFaultResponse(doc);
         QVERIFY(!result.success());
         QCOMPARE(result.errorCode(), arguments[0].toMap()[QLatin1String("faultCode")].toInt());
         QCOMPARE(result.errorString(), arguments[0].toMap()[QLatin1String("faultString")].toString());

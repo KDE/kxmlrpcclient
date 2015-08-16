@@ -30,6 +30,7 @@
 #include <QtCore/QList>
 #include <QtCore/QObject>
 #include <QtCore/QVariant>
+class ClientPrivate;
 
 /** Names for XmlRpc related classes */
 namespace KXmlRpc
@@ -278,8 +279,7 @@ public Q_SLOTS:
               const QVariant &id = QVariant());
 
 private:
-    class Private;
-    Private *const d;
+    ClientPrivate *const d;
 
     template <typename T>
     void call(const QString &method, const QList<T> &arg,

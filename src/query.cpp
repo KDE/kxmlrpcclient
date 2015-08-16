@@ -63,19 +63,19 @@ QList<QVariant> KXmlRpc::Result::data() const
     return mData;
 }
 
-bool Query::Private::isMessageResponse(const QDomDocument &doc)
+bool QueryPrivate::isMessageResponse(const QDomDocument &doc)
 {
     return doc.documentElement().firstChild().toElement().tagName().toLower()
            == QLatin1String("params");
 }
 
-bool Query::Private::isFaultResponse(const QDomDocument &doc)
+bool QueryPrivate::isFaultResponse(const QDomDocument &doc)
 {
     return doc.documentElement().firstChild().toElement().tagName().toLower()
            == QLatin1String("fault");
 }
 
-Result Query::Private::parseMessageResponse(const QDomDocument &doc)
+Result QueryPrivate::parseMessageResponse(const QDomDocument &doc)
 {
     Result response;
     response.mSuccess = true;
@@ -89,7 +89,7 @@ Result Query::Private::parseMessageResponse(const QDomDocument &doc)
     return response;
 }
 
-Result Query::Private::parseFaultResponse(const QDomDocument &doc)
+Result QueryPrivate::parseFaultResponse(const QDomDocument &doc)
 {
     Result response;
     response.mSuccess = false;
@@ -102,7 +102,7 @@ Result Query::Private::parseFaultResponse(const QDomDocument &doc)
     return response;
 }
 
-QByteArray Query::Private::markupCall(const QString &cmd,
+QByteArray QueryPrivate::markupCall(const QString &cmd,
                                       const QList<QVariant> &args)
 {
     QByteArray markup = "<?xml version=\"1.0\" ?>\r\n<methodCall>\r\n";
@@ -123,7 +123,7 @@ QByteArray Query::Private::markupCall(const QString &cmd,
     return markup;
 }
 
-QByteArray Query::Private::marshal(const QVariant &arg)
+QByteArray QueryPrivate::marshal(const QVariant &arg)
 {
     switch (arg.type()) {
 
@@ -180,7 +180,7 @@ QByteArray Query::Private::marshal(const QVariant &arg)
     return QByteArray();
 }
 
-QVariant Query::Private::demarshal(const QDomElement &element)
+QVariant QueryPrivate::demarshal(const QDomElement &element)
 {
     Q_ASSERT(element.tagName().toLower() == QLatin1String("value"));
 
@@ -244,14 +244,14 @@ QVariant Query::Private::demarshal(const QDomElement &element)
     return QVariant();
 }
 
-void Query::Private::slotData(KIO::Job *, const QByteArray &data)
+void QueryPrivate::slotData(KIO::Job *, const QByteArray &data)
 {
     unsigned int oldSize = mBuffer.size();
     mBuffer.resize(oldSize + data.size());
     memcpy(mBuffer.data() + oldSize, data.data(), data.size());
 }
 
-void Query::Private::slotResult(KJob *job)
+void QueryPrivate::slotResult(KJob *job)
 {
     mPendingJobs.removeAll(job);
 
@@ -321,7 +321,7 @@ void Query::call(const QUrl &server,
 }
 
 Query::Query(const QVariant &id, QObject *parent)
-    : QObject(parent), d(new Private(this))
+    : QObject(parent), d(new QueryPrivate(this))
 {
     d->mId = id;
 }
