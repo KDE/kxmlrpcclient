@@ -19,6 +19,7 @@ include(ECMSetupVersion)
 include(KDEInstallDirs)
 include(KDECMakeSettings)
 include(KDEFrameworkCompilerSettings)
+include(ECMQtDeclareLoggingCategory)
 
 set(KF5_VERSION "5.14.0") # handled by release scripts
 set(KF5_DEP_VERSION "5.13.0") # handled by release scripts

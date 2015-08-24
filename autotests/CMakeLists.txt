@@ -8,7 +8,7 @@ macro(add_kxmlrpc_test _name)
   ecm_add_test(${_name}.cpp
                ${CMAKE_SOURCE_DIR}/src/client.cpp
                ${CMAKE_SOURCE_DIR}/src/query.cpp
-               ${CMAKE_SOURCE_DIR}/src/kxmlrpcclient_debug.cpp
+               ${CMAKE_BINARY_DIR}/src/kxmlrpcclient_debug.cpp
                LINK_LIBRARIES KF5::KIOCore KF5::I18n Qt5::Xml Qt5::Test
                TEST_NAME ${_name}
                NAME_PREFIX kxmlrpc)
