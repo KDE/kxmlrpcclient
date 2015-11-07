@@ -40,10 +40,6 @@ public:
      */
     Result();
 
-    /**
-      Destroys a result.
-     */
-    ~Result();
 
     /**
       Returns true if the method call succeeded, false

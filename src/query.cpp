@@ -39,10 +39,6 @@ KXmlRpc::Result::Result()
 {
 }
 
-KXmlRpc::Result::~Result()
-{
-}
-
 bool KXmlRpc::Result::success() const
 {
     return mSuccess;
