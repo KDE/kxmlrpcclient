@@ -21,7 +21,7 @@ include(KDECMakeSettings)
 include(KDEFrameworkCompilerSettings NO_POLICY_SCOPE)
 include(ECMQtDeclareLoggingCategory)
 
-set(KF5_VERSION "5.19.0") # handled by release scripts
+set(KF5_VERSION "5.20.0") # handled by release scripts
 set(KF5_DEP_VERSION "5.19.0") # handled by release scripts
 
 add_definitions(-DTRANSLATION_DOMAIN=\"libkxmlrpcclient5\")
