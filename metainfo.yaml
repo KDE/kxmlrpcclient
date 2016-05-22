@@ -13,3 +13,7 @@ libraries:
     - qmake: KXmlRpcClient
       cmake: "KF5:XmlRpcClient"
 cmakename: KF5XmlRpcClient
+
+public_lib: true
+group: Frameworks
+subgroup: Tier 3
