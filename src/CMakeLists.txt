@@ -3,7 +3,7 @@ set(kxmlrpcclient_SRCS
   query.cpp
 )
 
-ecm_qt_declare_logging_category(kxmlrpcclient_SRCS HEADER kxmlrpcclient_debug.h IDENTIFIER KXMLRPCCLIENT_LOG CATEGORY_NAME log_kxmlrpcclient)
+ecm_qt_declare_logging_category(kxmlrpcclient_SRCS HEADER kxmlrpcclient_debug.h IDENTIFIER KXMLRPCCLIENT_LOG CATEGORY_NAME org.kde.pim.kxmlrpcclient)
 
 add_library(KF5XmlRpcClient ${kxmlrpcclient_SRCS})
 
