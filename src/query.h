@@ -60,7 +60,7 @@ public:
       @param id an optional id for the query.
       @param parent an optional parent for the query.
      */
-    static Query *create(const QVariant &id = QVariant(), QObject *parent = Q_NULLPTR);
+    static Query *create(const QVariant &id = QVariant(), QObject *parent = nullptr);
 
 public Q_SLOTS:
     /**
@@ -93,7 +93,7 @@ Q_SIGNALS:
     void finished(Query *query);
 
 private:
-    explicit Query(const QVariant &id, QObject *parent = Q_NULLPTR);
+    explicit Query(const QVariant &id, QObject *parent = nullptr);
     ~Query();
 
     QueryPrivate *const d;

@@ -61,7 +61,7 @@ public:
 
       @param parent the parent of this object, defaults to NULL.
      */
-    explicit Client(QObject *parent = Q_NULLPTR);
+    explicit Client(QObject *parent = nullptr);
 
     /**
       Constructs a XML-RPC Client, which will connect to @p url.
@@ -69,7 +69,7 @@ public:
       @param url the url of the xml-rpc server.
       @param parent the parent of this object, defaults to NULL.
      */
-    explicit Client(const QUrl &url, QObject *parent = Q_NULLPTR);
+    explicit Client(const QUrl &url, QObject *parent = nullptr);
 
     /**
       Destroys the XML-RPC Client.
