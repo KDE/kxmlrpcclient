@@ -42,7 +42,7 @@ using namespace KXmlRpc;
 void QueryTest::testValidity()
 {
     Query *q = Query::create();
-    QVERIFY(q != NULL);
+    QVERIFY(q != nullptr);
 }
 
 void QueryTest::testMarkupCall_data()
