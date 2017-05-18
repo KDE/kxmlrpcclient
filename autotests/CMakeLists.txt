@@ -12,6 +12,7 @@ macro(add_kxmlrpc_test _name)
                LINK_LIBRARIES KF5::KIOCore KF5::I18n Qt5::Xml Qt5::Test
                TEST_NAME ${_name}
                NAME_PREFIX kxmlrpc)
+  set_target_properties(${_name} PROPERTIES COMPILE_DEFINITIONS "KXMLRPCCLIENT_EXPORT=")
 endmacro()
 
 
