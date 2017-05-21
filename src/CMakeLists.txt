@@ -53,3 +53,26 @@ install(FILES
   DESTINATION ${KDE_INSTALL_INCLUDEDIR_KF5}/KXmlRpcClient/kxmlrpcclient/
   COMPONENT Devel
 )
+
+if(BUILD_QCH)
+    ecm_add_qch(
+        KF5XmlRpcClient_QCH
+        NAME KXmlRpcClient
+        BASE_NAME KF5XmlRpcClient
+        VERSION ${KF5_VERSION}
+        ORG_DOMAIN org.kde
+        SOURCES # using only public headers, to cover only public API
+            ${KXmlRpcClient_HEADERS}
+        MD_MAINPAGE "${CMAKE_SOURCE_DIR}/README.md"
+        LINK_QCHS
+            Qt5Core_QCH
+        BLANK_MACROS
+            KXMLRPCCLIENT_EXPORT
+            KXMLRPCCLIENT_DEPRECATED
+            KXMLRPCCLIENT_DEPRECATED_EXPORT
+        TAGFILE_INSTALL_DESTINATION ${KDE_INSTALL_QTQCHDIR}
+        QCH_INSTALL_DESTINATION ${KDE_INSTALL_QTQCHDIR}
+        COMPONENT Devel
+    )
+endif()
+
