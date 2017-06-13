@@ -46,6 +46,7 @@ class QueryPrivate;
 
   This is an internal class and is only used by the KXmlRpc::Client class.
   @internal
+  @since 5.8
  */
 class KXMLRPCCLIENT_EXPORT Query : public QObject
 {

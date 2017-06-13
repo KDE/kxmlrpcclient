@@ -50,6 +50,8 @@ namespace KXmlRpc
   @endcode
 
   @author Narayan Newton <narayannewton@gmail.com>
+
+  @since 5.8
  */
 class KXMLRPCCLIENT_EXPORT Client : public QObject
 {
