@@ -10,7 +10,7 @@
  *****************************************************************************/
 
 #include "query.h"
-
+#include "kxmlrpcclient_private_export.h"
 #include <KIO/Job>
 
 #include <QtCore/QUrl>
@@ -29,7 +29,7 @@ namespace KXmlRpc
   This is an internal class and is only used by Query.
   @internal
  */
-class Result
+class KXMLRPCCLIENT_TESTS_EXPORT Result
 {
     friend class Query;
     friend class QueryPrivate;
@@ -75,7 +75,7 @@ private:
     QList<QVariant> mData;
 };
 
-class QueryPrivate
+class KXMLRPCCLIENT_TESTS_EXPORT QueryPrivate
 {
 public:
     QueryPrivate(Query *parent)

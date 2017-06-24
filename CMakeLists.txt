@@ -38,6 +38,10 @@ ecm_setup_version(PROJECT VARIABLE_PREFIX KXMLRPCCLIENT
 find_package(KF5I18n ${KF5_DEP_VERSION} CONFIG REQUIRED)
 find_package(KF5KIO ${KF5_DEP_VERSION} CONFIG REQUIRED)
 
+if(BUILD_TESTING)
+   add_definitions(-DBUILD_TESTING)
+endif(BUILD_TESTING)
+
 ########### Targets ###########
 if(IS_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/po")
    ki18n_install(po)
