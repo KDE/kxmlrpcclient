@@ -83,4 +83,6 @@ install(FILES
   COMPONENT Devel
 )
 
+install(FILES kxmlrpcclient.categories kxmlrpcclient.renamecategories DESTINATION ${KDE_INSTALL_CONFDIR})
+
 feature_summary(WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)
