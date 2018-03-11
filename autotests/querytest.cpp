@@ -19,8 +19,8 @@
     Boston, MA 02110-1301, USA.
 */
 
-#include <QtTest/QTest>
-#include <QtCore/QDebug>
+#include <QTest>
+#include <QDebug>
 
 #include "querytest.h"
 

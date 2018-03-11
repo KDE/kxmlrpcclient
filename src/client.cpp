@@ -26,7 +26,7 @@
 #include "kxmlrpcclient_debug.h"
 #include <kio/job.h>
 
-#include <QtCore/QVariant>
+#include <QVariant>
 
 using namespace KXmlRpc;
 

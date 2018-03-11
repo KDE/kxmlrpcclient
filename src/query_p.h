@@ -13,10 +13,10 @@
 #include "kxmlrpcclient_private_export.h"
 #include <KIO/Job>
 
-#include <QtCore/QUrl>
-#include <QtCore/QDateTime>
-#include <QtCore/QVariant>
-#include <QtXml/QDomDocument>
+#include <QUrl>
+#include <QDateTime>
+#include <QVariant>
+#include <QDomDocument>
 
 namespace KXmlRpc
 {

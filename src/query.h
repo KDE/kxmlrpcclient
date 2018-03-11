@@ -23,11 +23,11 @@
 
 #include "kxmlrpcclient_export.h"
 
-#include <QtCore/QList>
-#include <QtCore/QObject>
-#include <QtCore/QVariant>
-#include <QtCore/QMap>
-#include <QtCore/QUrl>
+#include <QList>
+#include <QObject>
+#include <QVariant>
+#include <QMap>
+#include <QUrl>
 
 namespace KIO
 {

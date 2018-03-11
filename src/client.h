@@ -26,10 +26,10 @@
 
 #include "kxmlrpcclient_export.h"
 
-#include <QtCore/QUrl>
-#include <QtCore/QList>
-#include <QtCore/QObject>
-#include <QtCore/QVariant>
+#include <QUrl>
+#include <QList>
+#include <QObject>
+#include <QVariant>
 class ClientPrivate;
 
 /** Names for XmlRpc related classes */
