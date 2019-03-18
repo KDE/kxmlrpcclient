@@ -38,7 +38,7 @@ ecm_setup_version(PROJECT VARIABLE_PREFIX KXMLRPCCLIENT
 ########### Find packages ###########
 find_package(KF5I18n ${KF5_DEP_VERSION} CONFIG REQUIRED)
 find_package(KF5KIO ${KF5_DEP_VERSION} CONFIG REQUIRED)
-
+add_definitions(-DQT_NO_FOREACH)
 if(BUILD_TESTING)
    add_definitions(-DBUILD_TESTING)
 endif(BUILD_TESTING)
