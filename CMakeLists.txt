@@ -27,7 +27,6 @@ include(ECMAddQch)
 option(BUILD_QCH "Build API documentation in QCH format (for e.g. Qt Assistant, Qt Creator & KDevelop)" OFF)
 add_feature_info(QCH ${BUILD_QCH} "API documentation in QCH format (for e.g. Qt Assistant, Qt Creator & KDevelop)")
 
-#add_definitions(-DQT_DISABLE_DEPRECATED_BEFORE=0x060000)
 add_definitions(-DTRANSLATION_DOMAIN=\"libkxmlrpcclient5\")
 ecm_setup_version(PROJECT VARIABLE_PREFIX KXMLRPCCLIENT
                         VERSION_HEADER "${CMAKE_CURRENT_BINARY_DIR}/kxmlrpcclient_version.h"
@@ -39,6 +38,7 @@ ecm_setup_version(PROJECT VARIABLE_PREFIX KXMLRPCCLIENT
 find_package(KF5I18n ${KF5_DEP_VERSION} CONFIG REQUIRED)
 find_package(KF5KIO ${KF5_DEP_VERSION} CONFIG REQUIRED)
 add_definitions(-DQT_NO_FOREACH)
+add_definitions(-DQT_DISABLE_DEPRECATED_BEFORE=0x050d00)
 if(BUILD_TESTING)
    add_definitions(-DBUILD_TESTING)
 endif(BUILD_TESTING)
