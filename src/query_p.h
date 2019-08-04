@@ -13,8 +13,6 @@
 #include "kxmlrpcclient_private_export.h"
 #include <KIO/Job>
 
-#include <QUrl>
-#include <QDateTime>
 #include <QVariant>
 #include <QDomDocument>
 
