@@ -37,6 +37,8 @@ namespace KXmlRpc
 {
 
 /**
+  @class Client client.h <KXmlRpcClient/Client>
+
   @brief
   A class that represents a connection to a XML-RPC server.
   This is the main interface to the XML-RPC client library.
