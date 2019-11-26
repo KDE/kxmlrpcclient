@@ -7,8 +7,8 @@ platforms:
     - name: FreeBSD
     - name: Windows
     - name: MacOSX
-portingAid: false
-deprecated: false
+portingAid: true
+deprecated: true
 release: true
 libraries:
     - qmake: KXmlRpcClient
@@ -17,4 +17,4 @@ cmakename: KF5XmlRpcClient
 
 public_lib: true
 group: Frameworks
-subgroup: Tier 3
+subgroup: Porting Aids
