@@ -3,7 +3,14 @@ set(kxmlrpcclient_SRCS
   query.cpp
 )
 
-ecm_qt_declare_logging_category(kxmlrpcclient_SRCS HEADER kxmlrpcclient_debug.h IDENTIFIER KXMLRPCCLIENT_LOG CATEGORY_NAME kf5.kxmlrpcclient)
+ecm_qt_declare_logging_category(kxmlrpcclient_SRCS
+    HEADER kxmlrpcclient_debug.h
+    IDENTIFIER KXMLRPCCLIENT_LOG
+    CATEGORY_NAME kf5.kxmlrpcclient
+    OLD_CATEGORY_NAMES log_kxmlrpcclient org.kde.pim.kxmlrpcclient
+    DESCRIPTION "kxmlrpcclient (framework)"
+    EXPORT KXMLRPCCLIENT
+)
 
 add_library(KF5XmlRpcClient ${kxmlrpcclient_SRCS})
 
@@ -52,6 +59,12 @@ install(FILES
   ${KXmlRpcClient_HEADERS}
   DESTINATION ${KDE_INSTALL_INCLUDEDIR_KF5}/KXmlRpcClient/kxmlrpcclient/
   COMPONENT Devel
+)
+
+ecm_qt_install_logging_categories(
+    EXPORT KXMLRPCCLIENT
+    FILES kxmlrpcclient.categories
+    DESTINATION ${KDE_INSTALL_LOGGINGCATEGORIESDIR}
 )
 
 if(BUILD_QCH)
