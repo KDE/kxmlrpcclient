@@ -63,7 +63,7 @@ install(FILES
 
 ecm_qt_install_logging_categories(
     EXPORT KXMLRPCCLIENT
-    FILES kxmlrpcclient.categories
+    FILE kxmlrpcclient.categories
     DESTINATION ${KDE_INSTALL_LOGGINGCATEGORIESDIR}
 )
 
