@@ -6,8 +6,8 @@ set(kxmlrpcclient_SRCS
 ecm_qt_declare_logging_category(kxmlrpcclient_SRCS
     HEADER kxmlrpcclient_debug.h
     IDENTIFIER KXMLRPCCLIENT_LOG
-    CATEGORY_NAME kf5.kxmlrpcclient
-    OLD_CATEGORY_NAMES log_kxmlrpcclient org.kde.pim.kxmlrpcclient
+    CATEGORY_NAME kf.xmlrpcclient
+    OLD_CATEGORY_NAMES log_kxmlrpcclient org.kde.pim.kxmlrpcclient kf5.kxmlrpcclient
     DESCRIPTION "kxmlrpcclient (framework)"
     EXPORT KXMLRPCCLIENT
 )
