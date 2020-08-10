@@ -1,13 +1,10 @@
-/******************************************************************************
- *   Copyright (C) 2003 - 2004 by Frerich Raabe <raabe@kde.org>               *
- *                                Tobias Koenig <tokoe@kde.org>               *
- *   Copyright (C) 2006 by Narayan Newton <narayannewton@gmail.com>           *
- *                                                                            *
- * This program is distributed in the hope that it will be useful, but        *
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY *
- * or FITNESS FOR A PARTICULAR PURPOSE. For licensing and distribution        *
- * details, check the accompanying file 'COPYING.BSD'.                        *
- *****************************************************************************/
+/*
+    SPDX-FileCopyrightText: 2003-2004 Frerich Raabe <raabe@kde.org>
+    SPDX-FileCopyrightText: 2003-2004 Tobias Koenig <tokoe@kde.org>
+    SPDX-FileCopyrightText: 2006 Narayan Newton <narayannewton@gmail.com>
+
+    SPDX-License-Identifier: BSD-2-Clause
+*/
 /**
   @file
   This file is part of the API for accessing XML-RPC Servers
