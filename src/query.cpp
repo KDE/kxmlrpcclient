@@ -249,8 +249,8 @@ void QueryPrivate::slotResult(KJob *job)
     mPendingJobs.removeAll(job);
 
     if (job->error() != 0) {
-        emit mParent->fault(job->error(), job->errorString(), mId);
-        emit mParent->finished(mParent);
+        Q_EMIT mParent->fault(job->error(), job->errorString(), mId);
+        Q_EMIT mParent->finished(mParent);
         return;
     }
 
@@ -258,25 +258,25 @@ void QueryPrivate::slotResult(KJob *job)
     QString errMsg;
     int errLine, errCol;
     if (!doc.setContent(mBuffer, false, &errMsg, &errLine, &errCol)) {
-        emit mParent->fault(-1, i18n("Received invalid XML markup: %1 at %2:%3",
+        Q_EMIT mParent->fault(-1, i18n("Received invalid XML markup: %1 at %2:%3",
                                      errMsg, errLine, errCol), mId);
-        emit mParent->finished(mParent);
+        Q_EMIT mParent->finished(mParent);
         return;
     }
 
     mBuffer.truncate(0);
 
     if (isMessageResponse(doc)) {
-        emit mParent->message(parseMessageResponse(doc).data(), mId);
+        Q_EMIT mParent->message(parseMessageResponse(doc).data(), mId);
     } else if (isFaultResponse(doc)) {
         const Result fault = parseFaultResponse(doc);
-        emit mParent->fault(fault.errorCode(), fault.errorString(), mId);
+        Q_EMIT mParent->fault(fault.errorCode(), fault.errorString(), mId);
     } else {
-        emit mParent->fault(1, i18n("Unknown type of XML markup received"),
+        Q_EMIT mParent->fault(1, i18n("Unknown type of XML markup received"),
                             mId);
     }
 
-    emit mParent->finished(mParent);
+    Q_EMIT mParent->finished(mParent);
 }
 
 Query *Query::create(const QVariant &id, QObject *parent)
