@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.5)
 
-set(KF5_VERSION "5.79.0") # handled by release scripts
-set(KF5_DEP_VERSION "5.79.0") # handled by release scripts
-project(KXmlRpcClient VERSION ${KF5_VERSION})
+set(KF_VERSION "5.79.0") # handled by release scripts
+set(KF_DEP_VERSION "5.79.0") # handled by release scripts
+project(KXmlRpcClient VERSION ${KF_VERSION})
 
 # ECM setup
 include(FeatureSummary)
@@ -36,8 +36,8 @@ ecm_setup_version(PROJECT VARIABLE_PREFIX KXMLRPCCLIENT
 )
 
 ########### Find packages ###########
-find_package(KF5I18n ${KF5_DEP_VERSION} CONFIG REQUIRED)
-find_package(KF5KIO ${KF5_DEP_VERSION} CONFIG REQUIRED)
+find_package(KF5I18n ${KF_DEP_VERSION} CONFIG REQUIRED)
+find_package(KF5KIO ${KF_DEP_VERSION} CONFIG REQUIRED)
 add_definitions(-DQT_NO_FOREACH)
 add_definitions(-DQT_DISABLE_DEPRECATED_BEFORE=0x050d00)
 add_definitions(-DKF_DISABLE_DEPRECATED_BEFORE_AND_AT=0x054B00)

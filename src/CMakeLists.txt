@@ -72,7 +72,7 @@ if(BUILD_QCH)
         KF5XmlRpcClient_QCH
         NAME KXmlRpcClient
         BASE_NAME KF5XmlRpcClient
-        VERSION ${KF5_VERSION}
+        VERSION ${KF_VERSION}
         ORG_DOMAIN org.kde
         SOURCES # using only public headers, to cover only public API
             ${KXmlRpcClient_HEADERS}
