@@ -21,10 +21,10 @@
 #include "kxmlrpcclient_export.h"
 
 #include <QList>
-#include <QObject>
-#include <QVariant>
 #include <QMap>
+#include <QObject>
 #include <QUrl>
+#include <QVariant>
 
 namespace KIO
 {
@@ -51,7 +51,6 @@ class KXMLRPCCLIENT_EXPORT Query : public QObject
     Q_OBJECT
 
 public:
-
     /**
       Constructs a query.
 
@@ -70,9 +69,7 @@ public Q_SLOTS:
       @param args an argument list to pass to said method.
       @param jobMetaData additional arguments to pass to the KIO::Job.
      */
-    void call(const QUrl &server, const QString &method,
-              const QList<QVariant> &args,
-              const QMap<QString, QString> &jobMetaData);
+    void call(const QUrl &server, const QString &method, const QList<QVariant> &args, const QMap<QString, QString> &jobMetaData);
 
 Q_SIGNALS:
     /**
@@ -103,4 +100,3 @@ private:
 } // namespace XmlRpc
 
 #endif
-

@@ -23,16 +23,15 @@
 
 #include "kxmlrpcclient_export.h"
 
-#include <QUrl>
 #include <QList>
 #include <QObject>
+#include <QUrl>
 #include <QVariant>
 class ClientPrivate;
 
 /** Names for XmlRpc related classes */
 namespace KXmlRpc
 {
-
 /**
   @class Client client.h <KXmlRpcClient/Client>
 
@@ -138,9 +137,12 @@ public Q_SLOTS:
       @param faultSlot the error slot itself
       @param id the id for our #Client object, defaults to empty
      */
-    void call(const QString &method, const QList<QVariant> &args,
-              QObject *msgObj, const char *messageSlot,
-              QObject *faultObj, const char *faultSlot,
+    void call(const QString &method,
+              const QList<QVariant> &args,
+              QObject *msgObj,
+              const char *messageSlot,
+              QObject *faultObj,
+              const char *faultSlot,
               const QVariant &id = QVariant());
 
     /**
@@ -155,9 +157,12 @@ public Q_SLOTS:
       @param faultSlot the error slot itself
       @param id the id for our Client object, defaults to empty
      */
-    void call(const QString &method, const QVariant &arg,
-              QObject *msgObj, const char *messageSlot,
-              QObject *faultObj, const char *faultSlot,
+    void call(const QString &method,
+              const QVariant &arg,
+              QObject *msgObj,
+              const char *messageSlot,
+              QObject *faultObj,
+              const char *faultSlot,
               const QVariant &id = QVariant());
 
     /**
@@ -172,10 +177,8 @@ public Q_SLOTS:
       @param faultSlot the error slot itself
       @param id the id for our Client object, defaults to empty
      */
-    void call(const QString &method, int arg,
-              QObject *msgObj, const char *messageSlot,
-              QObject *faultObj, const char *faultSlot,
-              const QVariant &id = QVariant());
+    void
+    call(const QString &method, int arg, QObject *msgObj, const char *messageSlot, QObject *faultObj, const char *faultSlot, const QVariant &id = QVariant());
 
     /**
       Calls the given method on a XML-RPC server, with the given
@@ -189,10 +192,8 @@ public Q_SLOTS:
       @param faultSlot the error slot itself
       @param id the id for our Client object, defaults to empty
      */
-    void call(const QString &method, bool arg,
-              QObject *msgObj, const char *messageSlot,
-              QObject *faultObj, const char *faultSlot,
-              const QVariant &id = QVariant());
+    void
+    call(const QString &method, bool arg, QObject *msgObj, const char *messageSlot, QObject *faultObj, const char *faultSlot, const QVariant &id = QVariant());
 
     /**
       Calls the given method on a XML-RPC server, with the given
@@ -206,9 +207,12 @@ public Q_SLOTS:
       @param faultSlot the error slot itself
       @param id the id for our Client object, defaults to empty
      */
-    void call(const QString &method, double arg,
-              QObject *msgObj, const char *messageSlot,
-              QObject *faultObj, const char *faultSlot,
+    void call(const QString &method,
+              double arg,
+              QObject *msgObj,
+              const char *messageSlot,
+              QObject *faultObj,
+              const char *faultSlot,
               const QVariant &id = QVariant());
 
     /**
@@ -223,9 +227,12 @@ public Q_SLOTS:
       @param faultSlot the error slot itself
       @param id the id for our Client object, defaults to empty
      */
-    void call(const QString &method, const QString &arg,
-              QObject *msgObj, const char *messageSlot,
-              QObject *faultObj, const char *faultSlot,
+    void call(const QString &method,
+              const QString &arg,
+              QObject *msgObj,
+              const char *messageSlot,
+              QObject *faultObj,
+              const char *faultSlot,
               const QVariant &id = QVariant());
 
     /**
@@ -240,9 +247,12 @@ public Q_SLOTS:
       @param faultSlot the error slot itself
       @param id the id for our Client object, defaults to empty
      */
-    void call(const QString &method, const QByteArray &arg,
-              QObject *msgObj, const char *messageSlot,
-              QObject *faultObj, const char *faultSlot,
+    void call(const QString &method,
+              const QByteArray &arg,
+              QObject *msgObj,
+              const char *messageSlot,
+              QObject *faultObj,
+              const char *faultSlot,
               const QVariant &id = QVariant());
 
     /**
@@ -257,9 +267,12 @@ public Q_SLOTS:
       @param faultSlot the error slot itself
       @param id the id for our Client object, defaults to empty
      */
-    void call(const QString &method, const QDateTime &arg,
-              QObject *msgObj, const char *messageSlot,
-              QObject *faultObj, const char *faultSlot,
+    void call(const QString &method,
+              const QDateTime &arg,
+              QObject *msgObj,
+              const char *messageSlot,
+              QObject *faultObj,
+              const char *faultSlot,
               const QVariant &id = QVariant());
 
     /**
@@ -274,18 +287,24 @@ public Q_SLOTS:
       @param faultSlot the error slot itself
       @param id the id for our Client object, defaults to empty
      */
-    void call(const QString &method, const QStringList &arg,
-              QObject *msgObj, const char *messageSlot,
-              QObject *faultObj, const char *faultSlot,
+    void call(const QString &method,
+              const QStringList &arg,
+              QObject *msgObj,
+              const char *messageSlot,
+              QObject *faultObj,
+              const char *faultSlot,
               const QVariant &id = QVariant());
 
 private:
     ClientPrivate *const d;
 
-    template <typename T>
-    void call(const QString &method, const QList<T> &arg,
-              QObject *obj1, const char *messageSlot,
-              QObject *obj2, const char *faultSlot,
+    template<typename T>
+    void call(const QString &method,
+              const QList<T> &arg,
+              QObject *obj1,
+              const char *messageSlot,
+              QObject *obj2,
+              const char *faultSlot,
               const QVariant &id = QVariant());
 
     Q_PRIVATE_SLOT(d, void queryFinished(Query *))
@@ -303,10 +322,13 @@ private:
   @param faultSlot the error slot itself
   @param id the id for our Client object, defaults to empty
 */
-template <typename T>
-void Client::call(const QString &method, const QList<T> &arg,
-                  QObject *msgObj, const char *messageSlot,
-                  QObject *faultObj, const char *faultSlot,
+template<typename T>
+void Client::call(const QString &method,
+                  const QList<T> &arg,
+                  QObject *msgObj,
+                  const char *messageSlot,
+                  QObject *faultObj,
+                  const char *faultSlot,
                   const QVariant &id)
 {
     QList<QVariant> args;

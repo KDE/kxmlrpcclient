@@ -16,8 +16,8 @@
 */
 
 #include "query.h"
-#include "query_p.h"
 #include "kxmlrpcclient_debug.h"
+#include "query_p.h"
 
 #include <KIO/Job>
 #include <klocalizedstring.h>
@@ -58,14 +58,12 @@ QList<QVariant> KXmlRpc::Result::data() const
 
 bool QueryPrivate::isMessageResponse(const QDomDocument &doc)
 {
-    return doc.documentElement().firstChild().toElement().tagName().toLower()
-           == QLatin1String("params");
+    return doc.documentElement().firstChild().toElement().tagName().toLower() == QLatin1String("params");
 }
 
 bool QueryPrivate::isFaultResponse(const QDomDocument &doc)
 {
-    return doc.documentElement().firstChild().toElement().tagName().toLower()
-           == QLatin1String("fault");
+    return doc.documentElement().firstChild().toElement().tagName().toLower() == QLatin1String("fault");
 }
 
 Result QueryPrivate::parseMessageResponse(const QDomDocument &doc)
@@ -95,15 +93,13 @@ Result QueryPrivate::parseFaultResponse(const QDomDocument &doc)
     return response;
 }
 
-QByteArray QueryPrivate::markupCall(const QString &cmd,
-                                      const QList<QVariant> &args)
+QByteArray QueryPrivate::markupCall(const QString &cmd, const QList<QVariant> &args)
 {
     QByteArray markup = "<?xml version=\"1.0\" ?>\r\n<methodCall>\r\n";
 
     markup += "<methodName>" + cmd.toLatin1() + "</methodName>\r\n";
 
     if (!args.isEmpty()) {
-
         markup += "<params>\r\n";
         for (auto it = args.constBegin(), end = args.constEnd(); it != end; ++it) {
             markup += "<param>\r\n" + marshal(*it) + "</param>\r\n";
@@ -119,7 +115,6 @@ QByteArray QueryPrivate::markupCall(const QString &cmd,
 QByteArray QueryPrivate::marshal(const QVariant &arg)
 {
     switch (arg.type()) {
-
     case QVariant::String:
         return "<value><string><![CDATA[" + arg.toString().toUtf8() + "]]></string></value>\r\n";
     case QVariant::StringList: {
@@ -187,7 +182,6 @@ QVariant QueryPrivate::demarshal(const QDomElement &element)
     } else if (typeName == QLatin1String("double")) {
         return QVariant(typeElement.text().toDouble());
     } else if (typeName == QLatin1String("boolean")) {
-
         if (typeElement.text().toLower() == QLatin1String("true") || typeElement.text() == QLatin1String("1")) {
             return QVariant(true);
         } else {
@@ -199,8 +193,7 @@ QVariant QueryPrivate::demarshal(const QDomElement &element)
         QDateTime date;
         QString dateText = typeElement.text();
         // Test for broken use of Basic ISO8601 date and extended ISO8601 time
-        if (17 <= dateText.length() && dateText.length() <= 18 &&
-                dateText.at(4) !=  QLatin1Char('-') && dateText.at(11) ==  QLatin1Char(':')) {
+        if (17 <= dateText.length() && dateText.length() <= 18 && dateText.at(4) != QLatin1Char('-') && dateText.at(11) == QLatin1Char(':')) {
             if (dateText.endsWith(QLatin1Char('Z'))) {
                 date = QDateTime::fromString(dateText, QStringLiteral("yyyyMMddTHH:mm:ssZ"));
             } else {
@@ -219,14 +212,11 @@ QVariant QueryPrivate::demarshal(const QDomElement &element)
         }
         return QVariant(values);
     } else if (typeName == QLatin1String("struct")) {
-
         QMap<QString, QVariant> map;
         QDomNode memberNode = typeElement.firstChild();
         while (!memberNode.isNull()) {
-            const QString key = memberNode.toElement().elementsByTagName(
-                                    QStringLiteral("name")).item(0).toElement().text();
-            const QVariant data = demarshal(memberNode.toElement().elementsByTagName(
-                                                QStringLiteral("value")).item(0).toElement());
+            const QString key = memberNode.toElement().elementsByTagName(QStringLiteral("name")).item(0).toElement().text();
+            const QVariant data = demarshal(memberNode.toElement().elementsByTagName(QStringLiteral("value")).item(0).toElement());
             map[key] = data;
             memberNode = memberNode.nextSibling();
         }
@@ -258,8 +248,7 @@ void QueryPrivate::slotResult(KJob *job)
     QString errMsg;
     int errLine, errCol;
     if (!doc.setContent(mBuffer, false, &errMsg, &errLine, &errCol)) {
-        Q_EMIT mParent->fault(-1, i18n("Received invalid XML markup: %1 at %2:%3",
-                                     errMsg, errLine, errCol), mId);
+        Q_EMIT mParent->fault(-1, i18n("Received invalid XML markup: %1 at %2:%3", errMsg, errLine, errCol), mId);
         Q_EMIT mParent->finished(mParent);
         return;
     }
@@ -272,8 +261,7 @@ void QueryPrivate::slotResult(KJob *job)
         const Result fault = parseFaultResponse(doc);
         Q_EMIT mParent->fault(fault.errorCode(), fault.errorString(), mId);
     } else {
-        Q_EMIT mParent->fault(1, i18n("Unknown type of XML markup received"),
-                            mId);
+        Q_EMIT mParent->fault(1, i18n("Unknown type of XML markup received"), mId);
     }
 
     Q_EMIT mParent->finished(mParent);
@@ -284,12 +272,8 @@ Query *Query::create(const QVariant &id, QObject *parent)
     return new Query(id, parent);
 }
 
-void Query::call(const QUrl &server,
-                 const QString &method,
-                 const QList<QVariant> &args,
-                 const QMap<QString, QString> &jobMetaData)
+void Query::call(const QUrl &server, const QString &method, const QList<QVariant> &args, const QMap<QString, QString> &jobMetaData)
 {
-
     const QByteArray xmlMarkup = d->markupCall(method, args);
     KIO::TransferJob *job = KIO::http_post(server, xmlMarkup, KIO::HideProgressInfo);
 
@@ -305,16 +289,15 @@ void Query::call(const QUrl &server,
         job->addMetaData(it.key(), it.value());
     }
 
-    connect(job, SIGNAL(data(KIO::Job*,QByteArray)),
-            this, SLOT(slotData(KIO::Job*,QByteArray)));
-    connect(job, SIGNAL(result(KJob*)),
-            this, SLOT(slotResult(KJob*)));
+    connect(job, SIGNAL(data(KIO::Job *, QByteArray)), this, SLOT(slotData(KIO::Job *, QByteArray)));
+    connect(job, SIGNAL(result(KJob *)), this, SLOT(slotResult(KJob *)));
 
     d->mPendingJobs.append(job);
 }
 
 Query::Query(const QVariant &id, QObject *parent)
-    : QObject(parent), d(new QueryPrivate(this))
+    : QObject(parent)
+    , d(new QueryPrivate(this))
 {
     d->mId = id;
 }
@@ -328,4 +311,3 @@ Query::~Query()
 }
 
 #include "moc_query.cpp"
-

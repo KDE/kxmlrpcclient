@@ -146,77 +146,53 @@ void QueryTest::testResponse_data()
     map[QLatin1String("faultString")] = QLatin1String("Fatal Server Error");
     QTest::newRow("fault") << false
                            << XML_FAULT_HEAD
-                              "<value><struct>"
-                              "<member><name>faultCode</name><value><int>10</int></value></member>"
-                              "<member><name>faultString</name><value><string><![CDATA[Fatal Server Error]]></string></value></member>"
-                              "</struct></value>"
-                              XML_FAULT_END
+        "<value><struct>"
+        "<member><name>faultCode</name><value><int>10</int></value></member>"
+        "<member><name>faultString</name><value><string><![CDATA[Fatal Server Error]]></string></value></member>"
+        "</struct></value>" XML_FAULT_END
                            << (QVariantList() << map);
 
     QTest::newRow("string") << true
                             << XML_RESPONSE_HEAD
-                               "<param>"
-                               "<value><STRING><![CDATA[result]]></STRING></value>"
-                               "</param>"
-                               XML_RESPONSE_END
+        "<param>"
+        "<value><STRING><![CDATA[result]]></STRING></value>"
+        "</param>" XML_RESPONSE_END
                             << (QVariantList() << QLatin1String("result"));
     QTest::newRow("int") << true
                          << XML_RESPONSE_HEAD
-                            "<param>"
-                            "<value><INT>1</INT></value>"
-                            "</param>"
-                            XML_RESPONSE_END
+        "<param>"
+        "<value><INT>1</INT></value>"
+        "</param>" XML_RESPONSE_END
                          << (QVariantList() << 1);
-    QTest::newRow("i4") << true
-                        << XML_RESPONSE_HEAD
-                           "<param><value><I4>42</I4></value></param>"
-                           XML_RESPONSE_END
-                        << (QVariantList() << 42);
-    QTest::newRow("boolean (num)") << true
-                                   << XML_RESPONSE_HEAD
-                                      "<param><value><BOOLEAN>1</BOOLEAN></value></param>"
-                                      XML_RESPONSE_END
+    QTest::newRow("i4") << true << XML_RESPONSE_HEAD "<param><value><I4>42</I4></value></param>" XML_RESPONSE_END << (QVariantList() << 42);
+    QTest::newRow("boolean (num)") << true << XML_RESPONSE_HEAD "<param><value><BOOLEAN>1</BOOLEAN></value></param>" XML_RESPONSE_END
                                    << (QVariantList() << true);
-    QTest::newRow("boolean (str)") << true
-                                   << XML_RESPONSE_HEAD
-                                      "<param><value><BOOLEAN>TruE</BOOLEAN></value></param>"
-                                      XML_RESPONSE_END
+    QTest::newRow("boolean (str)") << true << XML_RESPONSE_HEAD "<param><value><BOOLEAN>TruE</BOOLEAN></value></param>" XML_RESPONSE_END
                                    << (QVariantList() << true);
-    QTest::newRow("base64") << true
-                            << XML_RESPONSE_HEAD
-                               "<param><value><BASE64>VmFsaWQgcmVzcG9uc2UK</BASE64></value></param>"
-                               XML_RESPONSE_END
+    QTest::newRow("base64") << true << XML_RESPONSE_HEAD "<param><value><BASE64>VmFsaWQgcmVzcG9uc2UK</BASE64></value></param>" XML_RESPONSE_END
                             << (QVariantList() << QByteArray("Valid response\n"));
-    QTest::newRow("datetime") << true
-                              << XML_RESPONSE_HEAD
-                                 "<param><value><DATETIME>2015-01-05T18:02:22</DATETIME></value></param>"
-                                 XML_RESPONSE_END
+    QTest::newRow("datetime") << true << XML_RESPONSE_HEAD "<param><value><DATETIME>2015-01-05T18:02:22</DATETIME></value></param>" XML_RESPONSE_END
                               << (QVariantList() << QDateTime(QDate(2015, 01, 05), QTime(18, 02, 22)));
     QTest::newRow("datetime 2") << true
-                                << XML_RESPONSE_HEAD
-                                   "<param><value><dateTime.iso8601>2015-01-05T17:03:15Z</dateTime.iso8601></value></param>"
-                                   XML_RESPONSE_END
+                                << XML_RESPONSE_HEAD "<param><value><dateTime.iso8601>2015-01-05T17:03:15Z</dateTime.iso8601></value></param>" XML_RESPONSE_END
                                 << (QVariantList() << QDateTime(QDate(2015, 01, 05), QTime(17, 03, 15), Qt::UTC));
     QTest::newRow("array") << true
                            << XML_RESPONSE_HEAD
-                              "<param><value><ARRAY><data>"
-                              "<value><STRING><![CDATA[item 1]]></STRING></value>"
-                              "<value><STRING><![CDATA[item 2]]></STRING></value>"
-                              "</data></ARRAY></value></param>"
-                              XML_RESPONSE_END
-                           << (QVariantList() << QVariant(QVariantList() << QLatin1String("item 1")
-                                                                         << QLatin1String("item 2")));
+        "<param><value><ARRAY><data>"
+        "<value><STRING><![CDATA[item 1]]></STRING></value>"
+        "<value><STRING><![CDATA[item 2]]></STRING></value>"
+        "</data></ARRAY></value></param>" XML_RESPONSE_END
+                           << (QVariantList() << QVariant(QVariantList() << QLatin1String("item 1") << QLatin1String("item 2")));
 
     map.clear();
     map[QLatin1String("Key 1")] = 15;
     map[QLatin1String("Key 2")] = QLatin1String("Value");
     QTest::newRow("struct") << true
                             << XML_RESPONSE_HEAD
-                               "<param><value><STRUCT>"
-                               "<member><name>Key 1</name><value><I4>15</I4></value></member>"
-                               "<member><name>Key 2</name><value><string><![CDATA[Value]]></string></value></member>"
-                               "</STRUCT></value></param>"
-                               XML_RESPONSE_END
+        "<param><value><STRUCT>"
+        "<member><name>Key 1</name><value><I4>15</I4></value></member>"
+        "<member><name>Key 2</name><value><string><![CDATA[Value]]></string></value></member>"
+        "</STRUCT></value></param>" XML_RESPONSE_END
                             << (QVariantList() << map);
 }
 
@@ -246,4 +222,3 @@ void QueryTest::testResponse()
         QVERIFY(result.data().isEmpty());
     }
 }
-

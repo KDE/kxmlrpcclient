@@ -12,11 +12,11 @@
 
 /* Classes which are exported only for unit tests */
 #ifdef BUILD_TESTING
-# ifndef KXMLRPCCLIENT_TESTS_EXPORT
-#  define KXMLRPCCLIENT_TESTS_EXPORT KXMLRPCCLIENT_EXPORT
-# endif
+#ifndef KXMLRPCCLIENT_TESTS_EXPORT
+#define KXMLRPCCLIENT_TESTS_EXPORT KXMLRPCCLIENT_EXPORT
+#endif
 #else /* not compiling tests */
-# define KXMLRPCCLIENT_TESTS_EXPORT
+#define KXMLRPCCLIENT_TESTS_EXPORT
 #endif
 
 #endif

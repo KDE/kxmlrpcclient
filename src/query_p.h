@@ -6,16 +6,15 @@
     SPDX-License-Identifier: BSD-2-Clause
 */
 
-#include "query.h"
 #include "kxmlrpcclient_private_export.h"
+#include "query.h"
 #include <KIO/Job>
 
-#include <QVariant>
 #include <QDomDocument>
+#include <QVariant>
 
 namespace KXmlRpc
 {
-
 /**
   @brief
   Result is an internal class that represents a response
@@ -34,7 +33,6 @@ public:
       Constructs a result.
      */
     Result();
-
 
     /**
       Returns true if the method call succeeded, false
