@@ -193,7 +193,8 @@ QVariant QueryPrivate::demarshal(const QDomElement &element)
         QDateTime date;
         QString dateText = typeElement.text();
         // Test for broken use of Basic ISO8601 date and extended ISO8601 time
-        if (17 <= dateText.length() && dateText.length() <= 18 && dateText.at(4) != QLatin1Char('-') && dateText.at(11) == QLatin1Char(':')) {
+        if (17 <= dateText.length() && dateText.length() <= 18 //
+            && dateText.at(4) != QLatin1Char('-') && dateText.at(11) == QLatin1Char(':')) {
             if (dateText.endsWith(QLatin1Char('Z'))) {
                 date = QDateTime::fromString(dateText, QStringLiteral("yyyyMMddTHH:mm:ssZ"));
             } else {

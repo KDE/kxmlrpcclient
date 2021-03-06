@@ -36,6 +36,7 @@ void QueryTest::testMarkupCall_data()
     QTest::addColumn<QList<QVariant>>("arguments");
     QTest::addColumn<QByteArray>("xml");
 
+    /* clang-format off */
     QTest::newRow("int") << QString::fromLatin1("MyMethod")
                          << (QVariantList() << 1)
                          << XML_CALL_HEAD("MyMethod")
@@ -123,6 +124,7 @@ void QueryTest::testMarkupCall_data()
                             "</struct></value>\r\n"
                             "</param>\r\n"
                             XML_CALL_END;
+    /* clang-format on */
 }
 
 void QueryTest::testMarkupCall()
@@ -144,6 +146,8 @@ void QueryTest::testResponse_data()
     QVariantMap map;
     map[QLatin1String("faultCode")] = 10;
     map[QLatin1String("faultString")] = QLatin1String("Fatal Server Error");
+
+    /* clang-format off */
     QTest::newRow("fault") << false
                            << XML_FAULT_HEAD
         "<value><struct>"
@@ -194,6 +198,7 @@ void QueryTest::testResponse_data()
         "<member><name>Key 2</name><value><string><![CDATA[Value]]></string></value></member>"
         "</STRUCT></value></param>" XML_RESPONSE_END
                             << (QVariantList() << map);
+    /* clang-format on */
 }
 
 void QueryTest::testResponse()
