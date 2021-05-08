@@ -47,9 +47,7 @@ if(BUILD_TESTING)
 endif(BUILD_TESTING)
 
 ########### Targets ###########
-if(IS_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/po")
-   ki18n_install(po)
-endif()
+ki18n_install(po)
 add_subdirectory(src)
 if (BUILD_TESTING)
      add_subdirectory(autotests)
