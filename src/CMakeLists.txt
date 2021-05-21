@@ -1,9 +1,12 @@
-set(kxmlrpcclient_SRCS
+add_library(KF5XmlRpcClient)
+add_library(KF5::XmlRpcClient ALIAS KF5XmlRpcClient)
+
+target_sources(KF5XmlRpcClient PRIVATE
   client.cpp
   query.cpp
 )
 
-ecm_qt_declare_logging_category(kxmlrpcclient_SRCS
+ecm_qt_declare_logging_category(KF5XmlRpcClient
     HEADER kxmlrpcclient_debug.h
     IDENTIFIER KXMLRPCCLIENT_LOG
     CATEGORY_NAME kf.xmlrpcclient
@@ -12,11 +15,7 @@ ecm_qt_declare_logging_category(kxmlrpcclient_SRCS
     EXPORT KXMLRPCCLIENT
 )
 
-add_library(KF5XmlRpcClient ${kxmlrpcclient_SRCS})
-
 generate_export_header(KF5XmlRpcClient BASE_NAME kxmlrpcclient)
-
-add_library(KF5::XmlRpcClient ALIAS KF5XmlRpcClient)
 
 target_include_directories(KF5XmlRpcClient INTERFACE "$<INSTALL_INTERFACE:${KDE_INSTALL_INCLUDEDIR_KF5}/KXmlRpcClient;${KDE_INSTALL_INCLUDEDIR_KF5}/KXmlRpcClient/kxmlrpcclient>")
 
