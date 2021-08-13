@@ -247,7 +247,8 @@ void QueryPrivate::slotResult(KJob *job)
 
     QDomDocument doc;
     QString errMsg;
-    int errLine, errCol;
+    int errLine;
+    int errCol;
     if (!doc.setContent(mBuffer, false, &errMsg, &errLine, &errCol)) {
         Q_EMIT mParent->fault(-1, i18n("Received invalid XML markup: %1 at %2:%3", errMsg, errLine, errCol), mId);
         Q_EMIT mParent->finished(mParent);
