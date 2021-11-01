@@ -89,7 +89,7 @@ Q_SIGNALS:
 
 private:
     explicit Query(const QVariant &id, QObject *parent = nullptr);
-    ~Query();
+    ~Query() override;
 
     QueryPrivate *const d;
 

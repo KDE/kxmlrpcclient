@@ -74,7 +74,7 @@ public:
     /**
       Destroys the XML-RPC Client.
      */
-    ~Client();
+    ~Client() override;
 
     /**
       Returns the current url the XML-RPC Client will connect to.
