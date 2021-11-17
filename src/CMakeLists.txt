@@ -2,8 +2,11 @@ add_library(KF5XmlRpcClient)
 add_library(KF5::XmlRpcClient ALIAS KF5XmlRpcClient)
 
 target_sources(KF5XmlRpcClient PRIVATE
-  client.cpp
-  query.cpp
+    client.cpp
+    client.h
+    query.cpp
+    query.h
+    query_p.h
 )
 
 ecm_qt_declare_logging_category(KF5XmlRpcClient
