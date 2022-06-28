@@ -22,7 +22,7 @@ include(ECMGenerateHeaders)
 include(ECMGeneratePriFile)
 include(CMakePackageConfigHelpers)
 include(ECMSetupVersion)
-
+include(ECMDeprecationSettings)
 include(ECMQtDeclareLoggingCategory)
 include(ECMAddQch)
 
@@ -42,12 +42,15 @@ set(REQUIRED_QT_VERSION 5.15.2)
 find_package(Qt5 ${REQUIRED_QT_VERSION} NO_MODULE REQUIRED Xml)
 find_package(KF5I18n ${KF_DEP_VERSION} CONFIG REQUIRED)
 find_package(KF5KIO ${KF_DEP_VERSION} CONFIG REQUIRED)
-add_definitions(-DQT_DISABLE_DEPRECATED_BEFORE=0x050f02)
-add_definitions(-DKF_DISABLE_DEPRECATED_BEFORE_AND_AT=0x055900)
 if(BUILD_TESTING)
     find_package(Qt5 ${REQUIRED_QT_VERSION} NO_MODULE REQUIRED Test)
     add_definitions(-DBUILD_TESTING)
 endif(BUILD_TESTING)
+
+ecm_set_disabled_deprecation_versions(
+    QT 5.15.2
+    KF 5.95
+)
 
 ########### Targets ###########
 ki18n_install(po)
