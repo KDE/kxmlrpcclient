@@ -1,12 +1,12 @@
 cmake_minimum_required(VERSION 3.16)
 
 set(KF_VERSION "5.96.0") # handled by release scripts
-set(KF_DEP_VERSION "5.95.0") # handled by release scripts
+set(KF_DEP_VERSION "5.96.0") # handled by release scripts
 project(KXmlRpcClient VERSION ${KF_VERSION})
 
 # ECM setup
 include(FeatureSummary)
-find_package(ECM 5.95.0 CONFIG )
+find_package(ECM 5.96.0 CONFIG )
 set_package_properties(ECM PROPERTIES TYPE REQUIRED DESCRIPTION "Extra CMake Modules." URL "https://commits.kde.org/extra-cmake-modules")
 feature_summary(WHAT REQUIRED_PACKAGES_NOT_FOUND FATAL_ON_MISSING_REQUIRED_PACKAGES)
 
