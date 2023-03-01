@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libkxmlrpcclient\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2019-05-20 02:58+0200\n"
+"POT-Creation-Date: 2021-08-14 00:14+0000\n"
 "PO-Revision-Date: 2008-01-01 12:00+0100\n"
 "Last-Translator: Chusslove Illich <caslav.ilic@gmx.net>\n"
 "Language-Team: Serbian <kde-i18n-sr@kde.org>\n"
@@ -18,12 +18,12 @@ msgstr ""
 "X-Text-Markup: kde4\n"
 "X-Environment: kde\n"
 
-#: query.cpp:264
+#: query.cpp:253
 #, kde-format
 msgid "Received invalid XML markup: %1 at %2:%3"
 msgstr "Primljen neispravan XML: %1 kod %2:%3"
 
-#: query.cpp:278
+#: query.cpp:266
 #, kde-format
 msgid "Unknown type of XML markup received"
 msgstr "Primljen nepoznat tip XML‑a"
