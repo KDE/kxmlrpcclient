@@ -1,13 +1,16 @@
 # Translation of libkxmlrpcclient into esperanto.
+# Copyright (C) 2009 Free Software Foundation, Inc.
+# This file is distributed under the same license as the kxmlrpcclient package.
 # Axel Rousseau <axel@esperanto-jeunes.org>, 2009.
+# Oliver Kellogg <okellogg@users.sourceforge.net>, 2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: libkxmlrpcclient\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2021-08-14 00:14+0000\n"
-"PO-Revision-Date: 2009-11-15 12:06+0100\n"
-"Last-Translator: Axel Rousseau <axel@esperanto-jeunes.org>\n"
+"PO-Revision-Date: 2023-06-11 15:14+0100\n"
+"Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
 "MIME-Version: 1.0\n"
@@ -19,9 +22,9 @@ msgstr ""
 #: query.cpp:253
 #, kde-format
 msgid "Received invalid XML markup: %1 at %2:%3"
-msgstr ""
+msgstr "Ricevis nevalidan XML-markadon: %1 ĉe %2:%3"
 
 #: query.cpp:266
 #, kde-format
 msgid "Unknown type of XML markup received"
-msgstr ""
+msgstr "Ricevis nekonatan specon de XML-markado"
