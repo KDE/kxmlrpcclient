@@ -227,3 +227,5 @@ void QueryTest::testResponse()
         QVERIFY(result.data().isEmpty());
     }
 }
+
+#include "moc_querytest.cpp"

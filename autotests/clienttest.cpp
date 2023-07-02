@@ -31,3 +31,5 @@ void ClientTest::testValidity()
     delete c;
     delete other;
 }
+
+#include "moc_clienttest.cpp"
