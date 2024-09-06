@@ -1,7 +1,7 @@
 # Stephan Johach <hunsum@gmx.de>, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: libkxmlrpcclient\n"
+"Project-Id-Version: libkxmlrpcclient5\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-05 12:25+0000\n"
 "PO-Revision-Date: 2007-06-29 15:30+0200\n"
