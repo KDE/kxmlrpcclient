@@ -1,4 +1,4 @@
-# Stephan Johach <hunsum@gmx.de>, 2007.
+# SPDX-FileCopyrightText: 2007 Stephan Johach <hunsum@gmx.de>
 msgid ""
 msgstr ""
 "Project-Id-Version: libkxmlrpcclient5\n"
